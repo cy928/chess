@@ -8,7 +8,7 @@ public class Rook extends ChessPiece {
     super(pieceColor, PieceType.ROOK);
   }
 
-  public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition, ChessGame.TeamColor color) {
+  public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
     List<ChessMove> validMoves = new ArrayList<>();
 
     int[][] directions = {

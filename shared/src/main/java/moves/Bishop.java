@@ -3,12 +3,11 @@ import chess.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 public class Bishop extends ChessPiece {
   public Bishop(ChessGame.TeamColor pieceColor) {
     super(pieceColor, PieceType.BISHOP);
   }
-  public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition, ChessGame.TeamColor color) {
+  public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
     List<ChessMove> validMoves = new ArrayList<>();
 
     int[][] directions = {

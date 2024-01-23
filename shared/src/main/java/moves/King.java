@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.List;
 public class King extends ChessPiece {
   public King(ChessGame.TeamColor pieceColor) {
-    super(pieceColor, PieceType.BISHOP);
+    super(pieceColor, PieceType.KING);
   }
-  public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition, ChessGame.TeamColor color) {
+  public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
     List<ChessMove> validMoves = new ArrayList<>();
 
     int[][] directions = {

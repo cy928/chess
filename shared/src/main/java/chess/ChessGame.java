@@ -101,7 +101,19 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        ArrayList<ChessPosition> pieces_positions = board.getList(teamColor);
+        Collection<ChessMove> moves;
+        ChessPosition King_position = board.getKing(teamColor);
+        for (ChessPosition position : pieces_positions) {
+            ChessPiece piece = board.getPiece(position);
+            moves = piece.pieceMoves(board, position);
+            for (ChessMove move : moves) {
+                if (move.getEndPosition().equals(King_position)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

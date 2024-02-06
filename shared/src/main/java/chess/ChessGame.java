@@ -1,5 +1,5 @@
 package chess;
-
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -9,6 +9,9 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessGame {
+    private ChessBoard board;
+    private TeamColor turn;
+    private chess.InvalidMoveException InvalidMoveException = new InvalidMoveException();
 
     public ChessGame() {
 
@@ -18,7 +21,7 @@ public class ChessGame {
      * @return Which team's turn it is
      */
     public TeamColor getTeamTurn() {
-        throw new RuntimeException("Not implemented");
+        return turn;
     }
 
     /**
@@ -27,7 +30,7 @@ public class ChessGame {
      * @param team the team whose turn it is
      */
     public void setTeamTurn(TeamColor team) {
-        throw new RuntimeException("Not implemented");
+        this.turn = team;
     }
 
     /**
@@ -49,6 +52,7 @@ public class ChessGame {
         throw new RuntimeException("Not implemented");
     }
 
+
     /**
      * Makes a move in a chess game
      *
@@ -58,6 +62,7 @@ public class ChessGame {
     public void makeMove(ChessMove move) throws InvalidMoveException {
         throw new RuntimeException("Not implemented");
     }
+
 
     /**
      * Determines if the given team is in check
@@ -96,7 +101,7 @@ public class ChessGame {
      * @param board the new board to use
      */
     public void setBoard(ChessBoard board) {
-        throw new RuntimeException("Not implemented");
+        this.board = board;
     }
 
     /**
@@ -105,6 +110,6 @@ public class ChessGame {
      * @return the chessboard
      */
     public ChessBoard getBoard() {
-        throw new RuntimeException("Not implemented");
+        return board;
     }
 }

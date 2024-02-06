@@ -39,7 +39,21 @@ public class ChessBoard {
             b_piece.add(position);
         }
     }
+    public ChessPosition getKing(ChessGame.TeamColor color) {
+        if (color == ChessGame.TeamColor.WHITE) {
+            return w_king;
+        } else {
+            return b_king;
+        }
+    }
 
+    public ArrayList<ChessPosition> getList(ChessGame.TeamColor color) {
+        if (color == ChessGame.TeamColor.WHITE) {
+            return w_piece;
+        } else {
+            return b_piece;
+        }
+    }
     /**
      * Gets a chess piece on the chessboard
      *

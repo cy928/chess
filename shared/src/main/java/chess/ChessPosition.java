@@ -11,7 +11,6 @@ import java.util.Objects;
 public class ChessPosition {
     private final int row;
     private final int col;
-
     public ChessPosition(int row, int col) {
         this.row = row;
         this.col = col;
@@ -29,7 +28,9 @@ public class ChessPosition {
      * @return which column this position is in
      * 1 codes for the left row
      */
-    public int getColumn() { return col; }
+    public int getColumn() {
+        return col;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -42,10 +43,5 @@ public class ChessPosition {
     @Override
     public int hashCode() {
         return Objects.hash(row, col);
-    }
-
-    @Override
-    public String toString() {
-        return "ChessPosition: " + row + "," + col;
     }
 }

@@ -1,9 +1,10 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.ArrayList;
 import moves.*;
+
 /**
  * Represents a single chess piece
  * <p>
@@ -53,31 +54,25 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         ArrayList<ChessMove> moves = new ArrayList<>();
-        if (this.getPieceType() == PieceType.KING){
-            King move = new King(this.getTeamColor());
-            moves.addAll(move.pieceMoves(board,myPosition));
-        }
-        else if (this.getPieceType()==PieceType.QUEEN){
-            Queen move = new Queen(this.getTeamColor());
-            moves.addAll(move.pieceMoves(board,myPosition));
-        }
-        else if (this.getPieceType() == PieceType.BISHOP){
+        if (this.getPieceType() == PieceType.BISHOP) {
             Bishop move = new Bishop(this.getTeamColor());
-            moves.addAll(move.pieceMoves(board,myPosition));
-        }
-        else if(this.getPieceType() == PieceType.ROOK){
-            Rook move = new Rook(this.getTeamColor());
-            moves.addAll(move.pieceMoves(board,myPosition));
-        }
-        else if (this.getPieceType() == PieceType.KNIGHT){
+            moves.addAll(move.pieceMoves(board, myPosition));
+        } else if (this.getPieceType() == PieceType.KING) {
+            King move = new King(this.getTeamColor());
+            moves.addAll(move.pieceMoves(board, myPosition));
+        } else if (this.getPieceType() == PieceType.KNIGHT) {
             Knight move = new Knight(this.getTeamColor());
-            moves.addAll(move.pieceMoves(board,myPosition));
-        }
-        else if (this.getPieceType() == PieceType.PAWN){
+            moves.addAll(move.pieceMoves(board, myPosition));
+        } else if (this.getPieceType() == PieceType.ROOK) {
+            Rook move = new Rook(this.getTeamColor());
+            moves.addAll(move.pieceMoves(board, myPosition));
+        } else if (this.getPieceType() == PieceType.QUEEN) {
+            Queen move = new Queen(this.getTeamColor());
+            moves.addAll(move.pieceMoves(board, myPosition));
+        } else if (this.getPieceType() == PieceType.PAWN) {
             Pawn move = new Pawn(this.getTeamColor());
-            moves.addAll(move.pieceMoves(board,myPosition));
+            moves.addAll(move.pieceMoves(board, myPosition));
         }
-
         return moves;
     }
 

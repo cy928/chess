@@ -16,8 +16,8 @@ public class ChessBoard {
     }
     private ChessPosition w_king;
     private ChessPosition b_king;
-    private ArrayList<ChessPosition> w_piece = new ArrayList<>();
-    private ArrayList<ChessPosition> b_piece = new ArrayList<>();
+    private final ArrayList<ChessPosition> w_piece = new ArrayList<>();
+    private final ArrayList<ChessPosition> b_piece = new ArrayList<>();
     /**
      * Adds a chess piece to the chessboard
      *
@@ -26,17 +26,19 @@ public class ChessBoard {
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
         board[position.getRow()-1][position.getColumn()-1] = piece;
-        if (piece.getPieceType() == ChessPiece.PieceType.KING) {
-            if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
-                w_king = position;
-            } else {
-                b_king = position;
+        if (piece != null) {
+            if (piece.getPieceType() == ChessPiece.PieceType.KING) {
+                if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
+                    w_king = position;
+                } else {
+                    b_king = position;
+                }
             }
-        }
-        if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
-            w_piece.add(position);
-        } else {
-            b_piece.add(position);
+            if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
+                w_piece.add(position);
+            } else {
+                b_piece.add(position);
+            }
         }
     }
     public ChessPosition getKing(ChessGame.TeamColor color) {

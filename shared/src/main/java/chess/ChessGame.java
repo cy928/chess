@@ -123,7 +123,7 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
-      
+        return isInCheck(teamColor) && isInStalemate(teamColor);
     }
 
     /**

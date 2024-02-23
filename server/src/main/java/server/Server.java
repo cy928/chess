@@ -21,7 +21,7 @@ public class Server {
                 (new ListGameHandler()).handleRequest(req,
                         res));
         Spark.post("/game", (req, res) ->
-                (new CreatGameHandler()).handleRequest(req,
+                (new CreateGameHandler()).handleRequest(req,
                         res));
         Spark.put("/game", (req, res) ->
                 (new JoinGameHandler()).handleRequest(req,

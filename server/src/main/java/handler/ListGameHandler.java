@@ -13,9 +13,9 @@ public class ListGameHandler implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         var auth = new AuthToken(request.headers("authorization"));
-        ListGameResponse gameList = GameService.getGameList(auth);
+        ListGameResponse resp = GameService.getGameList(auth);
         response.status(200);
-        response.body(new Gson().toJson(gameList));
-        return new Gson().toJson(gameList);
+        response.body(new Gson().toJson(resp));
+        return new Gson().toJson(resp);
     }
 }

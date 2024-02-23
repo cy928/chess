@@ -7,22 +7,33 @@ import request.RegisterRequest;
 
 public class UserService {
     public static AuthToken register(RegisterRequest information) throws DataAccessException {
-        if (!userDAO.getUser(information.username())) {
+        if (information.username() == null | information.passsword() == null | information.email() == null) {
+            throw new DataAccessException("Error: bad request");
+        }
+        try {
             userDAO.creatUser(information.username(), information.passsword(), information.email());
             AuthToken auth = userDAO.creatAuth(information.username());
             return auth;
+        } catch (DataAccessException e) {
+            throw e;
         }
-        else {
-            throw new DataAccessException("Error: already taken");
-        }
+
     }
     public static AuthToken login(LoginRequest information) throws DataAccessException {
-        AuthToken auth = userDAO.checkCredential(information.username(), information.password());
-        return auth;
+        try {
+            userDAO.checkCredential(information.username(), information.password());
+            AuthToken auth = userDAO.creatAuth(information.username());
+            return auth;
+        } catch (DataAccessException e) {
+            throw e;
+        }
     }
-    public static AuthToken logout( AuthToken auth) throws DataAccessException {
-        if (userDAO.checkSession(auth)) {
-            userDAO.deleteSession(auth);
+    public static boolean logout(AuthToken auth) throws DataAccessException {
+        try {
+            userDAO.logout(auth);
+            return true;
+        } catch (DataAccessException e) {
+            throw e;
         }
     }
 }

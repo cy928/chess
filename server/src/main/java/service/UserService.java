@@ -5,7 +5,7 @@ import request.AuthToken;
 import request.LoginRequest;
 import request.RegisterRequest;
 
-public class userService {
+public class UserService {
     public static AuthToken register(RegisterRequest information) throws DataAccessException {
         if (!userDAO.getUser(information.username())) {
             userDAO.creatUser(information.username(), information.passsword(), information.email());
@@ -15,11 +15,14 @@ public class userService {
         else {
             throw new DataAccessException("Error: already taken");
         }
-
     }
     public static AuthToken login(LoginRequest information) throws DataAccessException {
         AuthToken auth = userDAO.checkCredential(information.username(), information.password());
         return auth;
     }
-
+    public static AuthToken logout( AuthToken auth) throws DataAccessException {
+        if (userDAO.checkSession(auth)) {
+            userDAO.deleteSession(auth);
+        }
+    }
 }

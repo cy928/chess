@@ -1,6 +1,7 @@
 package server;
 
 import spark.*;
+import handler.*;
 
 public class Server {
 
@@ -10,15 +11,9 @@ public class Server {
         Spark.staticFiles.location("web");
 
         // Register your endpoints and handle exceptions here.
-        Spark.delete("/db", (req, res) ->
-                (new ClearApplicationHandler()).handleRequest(req,
-                        res));
-        Spark.post("/user", (req, res) ->
-                (new RegisterHandler()).handleRequest(req,
-                        res));
-        Spark.post("/session", (req, res) ->
-                (new LoginHandler()).handleRequest(req,
-                        res));
+        Spark.delete("/db", new ClearApplicationHandler());
+        Spark.post("/user", new RegisterHandler());
+        Spark.post("/session", new LoginHandler());
         Spark.delete("/session", (req, res) ->
                 (new LogoutHandler()).handleRequest(req,
                         res));

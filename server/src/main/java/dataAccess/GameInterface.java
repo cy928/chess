@@ -8,6 +8,9 @@ import response.ListGameResponse;
 public interface GameInterface {
     public ListGameResponse getGameList(String username) throws DataAccessException;
     public void joinGame(String username, JoinGameRequest information) throws DataAccessException;
-    public CreateGameResponse createGame(String username, CreateGameRequest information) throws DataAccessException;
+
+    public CreateGameResponse createGame(CreateGameRequest information);
+
+    public void delete() throws DataAccessException ;
 
 }

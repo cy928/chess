@@ -4,32 +4,39 @@ import dataAccess.DataAccessException;
 import request.AuthToken;
 import request.LoginRequest;
 import request.RegisterRequest;
+import dataAccess.AuthDAO;
+import dataAccess.UserDAO;
+
+
 
 public class UserService {
-    public static AuthToken register(RegisterRequest information) throws DataAccessException {
+    public AuthToken register(RegisterRequest information) throws DataAccessException {
         if (information.username() == null | information.password() == null | information.email() == null) {
             throw new DataAccessException("Error: bad request");
         }
+        UserDAO userDAO = new UserDAO();
         try {
-            userDAO.createUser(information.username(), information.password(), information.email());
+            userDAO.createUser(information);
+            AuthDAO authDAO = new AuthDAO();
             AuthToken auth = authDAO.createAuth(information.username());
             return auth;
         } catch (DataAccessException e) {
             throw e;
         }
     }
-    public static AuthToken login(LoginRequest information) throws DataAccessException {
-        try {
-            userDAO.checkCredential(information.username(), information.password());
-            AuthToken auth = authDAO.createAuth(information.username());
-            return auth;
-        } catch (DataAccessException e) {
-            throw e;
+    public AuthToken login(LoginRequest information) throws DataAccessException {
+        UserDAO userDAO = new UserDAO();
+        if (Boolean.FALSE.equals(userDAO.checkCredential(information))) {
+            throw new DataAccessException("Error: unauthorized");
         }
+        AuthDAO authDAO = new AuthDAO();
+        AuthToken auth = authDAO.createAuth(information.username());
+        return auth;
     }
-    public static boolean logout(AuthToken auth) throws DataAccessException {
+    public Boolean logout(AuthToken auth) throws DataAccessException {
+        AuthDAO authDAO = new AuthDAO();
         try {
-            authDAO.logout(auth);
+            authDAO.deleteAuth(auth);
             return true;
         } catch (DataAccessException e) {
             throw e;

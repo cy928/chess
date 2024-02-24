@@ -14,8 +14,9 @@ public class JoinGameHandler implements Route {
     public Object handle(Request request, Response response) throws DataAccessException {
         var game_info = new Gson().fromJson(request.body(), JoinGameRequest.class);
         AuthToken authToken = new AuthToken(request.headers("authorization"));
+        GameService service = new GameService();
         try {
-            GameService.joinGame(authToken, game_info);
+            service.joinGame(authToken, game_info);
         } catch (DataAccessException e) {
             throw e;
         }

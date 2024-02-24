@@ -14,7 +14,8 @@ public class RegisterHandler implements Route {
     @Override
     public Object handle(Request request, Response response) throws DataAccessException {
         var register_info = new Gson().fromJson(request.body(), RegisterRequest.class);
-        AuthToken authToken = UserService.register(register_info);
+        UserService service = new UserService();
+        AuthToken authToken = service.register(register_info);
         var resp = new UserResponse(register_info.username(), authToken);
         response.status(200);
         return new Gson().toJson(resp);

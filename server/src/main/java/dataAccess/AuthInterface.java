@@ -5,8 +5,11 @@ import request.LoginRequest;
 import response.ListGameResponse;
 
 public interface AuthInterface {
-    public void logout(AuthToken authToken) throws DataAccessException;
-    public String getUsername(AuthToken authToken) throws DataAccessException;
-    public void checkAuthToken(AuthToken authToken) throws DataAccessException;
-    public AuthToken createAuth(String username) throws DataAccessException;
+    public void deleteAuth(AuthToken authToken) throws DataAccessException;
+
+    public String getUsername(AuthToken authToken);
+
+    public boolean checkAuthToken(AuthToken authToken);
+
+    public AuthToken createAuth(String username);
 }

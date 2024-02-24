@@ -6,49 +6,50 @@ import request.CreateGameRequest;
 import request.JoinGameRequest;
 import response.CreateGameResponse;
 import response.ListGameResponse;
-
-
+import dataAccess.AuthDAO;
+import dataAccess.GameDAO;
 
 public class GameService {
-    public static ListGameResponse getGameList(AuthToken auth) throws DataAccessException{
-        String username = authDAO.getUsername(auth);
-        try {
-            authDAO.checkAuthToken(auth);
-            ListGameResponse gameList = gameDAO.getGameList(username);
-            return gameList;
-
-        } catch(DataAccessException e) {
-            throw e;
+    public ListGameResponse getGameList(AuthToken auth) throws DataAccessException{
+        AuthDAO authDAO = new AuthDAO();
+        GameDAO gameDAO = new GameDAO();
+        if (!authDAO.checkAuthToken(auth)) {
+            throw new DataAccessException("Error: unauthorized");
         }
+        String username = authDAO.getUsername(auth);
+        ListGameResponse gameList = gameDAO.getGameList(username);
+        return gameList;
     }
-    public static boolean joinGame(AuthToken auth, JoinGameRequest information) throws DataAccessException{
+    public Boolean joinGame(AuthToken auth, JoinGameRequest information) throws DataAccessException{
         if (information.gameID() == null) {
             throw new DataAccessException("Error: bad request");
         }
-        try {
-            authDAO.checkAuthToken(auth);
-        } catch(DataAccessException e) {
-            throw e;
+        AuthDAO dao = new AuthDAO();
+        if (!dao.checkAuthToken(auth)) {
+            throw new DataAccessException("Error: unauthorized");
         }
+        AuthDAO authDAO = new AuthDAO();
+        GameDAO gameDAO = new GameDAO();
         String username = authDAO.getUsername(auth);
         try {
             gameDAO.joinGame(username, information);
-        } catch(DataAccessException e) {
+            return true;
+        } catch (DataAccessException e) {
             throw e;
         }
-        return true;
     }
-    public static CreateGameResponse createGame(AuthToken auth, CreateGameRequest information) throws DataAccessException{
+    public CreateGameResponse createGame(AuthToken auth, CreateGameRequest information) throws DataAccessException{
         if (information.gameName() == null) {
             throw new DataAccessException("Error: bad request");
         }
-        try {
-            authDAO.checkAuthToken(auth);
-        } catch(DataAccessException e) {
-            throw e;
+        AuthDAO authDAO = new AuthDAO();
+        GameDAO gameDAO = new GameDAO();
+        if (!authDAO.checkAuthToken(auth)) {
+            throw new DataAccessException("Error: unauthorized");
         }
-        String username = authDAO.getUsername(auth);
-        CreateGameResponse resp = gameDAO.createGame(username, information);
+        AuthDAO dao = new AuthDAO();
+        String username = dao.getUsername(auth);
+        CreateGameResponse resp = gameDAO.createGame(information);
         return resp;
     }
 }

@@ -14,7 +14,8 @@ public class LoginHandler implements Route {
     @Override
     public Object handle(Request request, Response response) throws DataAccessException {
         var user_info = new Gson().fromJson(request.body(), LoginRequest.class);
-        AuthToken authToken = UserService.login(user_info);
+        UserService service = new UserService();
+        AuthToken authToken = service.login(user_info);
         UserResponse resp = new UserResponse(user_info.username(), authToken);
         response.status(200);
         response.body(new Gson().toJson(resp));

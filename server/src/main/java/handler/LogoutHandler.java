@@ -9,7 +9,7 @@ import spark.Route;
 
 public class LogoutHandler implements Route {
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) throws DataAccessException {
         AuthToken authToken = new AuthToken(request.headers("authorization"));
         try {
             UserService.logout(authToken);

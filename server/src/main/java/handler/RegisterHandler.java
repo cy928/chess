@@ -1,6 +1,7 @@
 package handler;
 
 import com.google.gson.Gson;
+import dataAccess.DataAccessException;
 import request.AuthToken;
 import response.UserResponse;
 import spark.Request;
@@ -11,7 +12,7 @@ import service.UserService;
 
 public class RegisterHandler implements Route {
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) throws DataAccessException {
         var register_info = new Gson().fromJson(request.body(), RegisterRequest.class);
         AuthToken authToken = UserService.register(register_info);
         var resp = new UserResponse(register_info.username(), authToken);

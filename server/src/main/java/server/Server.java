@@ -14,23 +14,10 @@ public class Server {
         Spark.delete("/db", new ClearApplicationHandler());
         Spark.post("/user", new RegisterHandler());
         Spark.post("/session", new LoginHandler());
-        Spark.delete("/session", (req, res) ->
-                (new LogoutHandler()).handleRequest(req,
-                        res));
-        Spark.get("/game", (req, res) ->
-                (new ListGameHandler()).handleRequest(req,
-                        res));
-        Spark.post("/game", (req, res) ->
-                (new CreateGameHandler()).handleRequest(req,
-                        res));
-        Spark.put("/game", (req, res) ->
-                (new JoinGameHandler()).handleRequest(req,
-                        res));
-
-
-
-
-
+        Spark.delete("/session", new LogoutHandler());
+        Spark.get("/game", new ListGameHandler());
+        Spark.post("/game", new CreateGameHandler());
+        Spark.put("/game", new JoinGameHandler());
         Spark.awaitInitialization();
         return Spark.port();
     }

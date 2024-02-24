@@ -7,6 +7,8 @@ import request.JoinGameRequest;
 import response.CreateGameResponse;
 import response.ListGameResponse;
 
+
+
 public class GameService {
     public static ListGameResponse getGameList(AuthToken auth) throws DataAccessException{
         String username = authDAO.getUsername(auth);
@@ -46,7 +48,7 @@ public class GameService {
             throw e;
         }
         String username = authDAO.getUsername(auth);
-        CreateGameResponse resp = gameDAO.creatGame(username, information);
+        CreateGameResponse resp = gameDAO.createGame(username, information);
         return resp;
     }
 }

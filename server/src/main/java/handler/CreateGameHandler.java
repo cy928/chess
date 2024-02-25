@@ -5,6 +5,7 @@ import dataAccess.DataAccessException;
 import request.AuthToken;
 import request.CreateGameRequest;
 import response.CreateGameResponse;
+import response.ErrorResponse;
 import service.GameService;
 import spark.Request;
 import spark.Response;
@@ -22,7 +23,9 @@ public class CreateGameHandler implements Route {
             response.body(new Gson().toJson(resp));
             return new Gson().toJson(resp);
         } catch (DataAccessException e) {
-            throw e;
+            ErrorResponse err = new ErrorResponse(e.getMessage());
+            response.body(new Gson().toJson(err));
+            return new Gson().toJson(err);
         }
     }
 }

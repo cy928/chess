@@ -2,36 +2,46 @@ package dataAccess;
 
 import request.AuthToken;
 
-import java.util.Dictionary;
-import java.util.UUID;
+import java.util.*;
 
 public class AuthDAO implements AuthInterface {
-    static Dictionary<AuthToken, String> userDB;
+    static Map<AuthToken, String> authDB= new HashMap<>();
     @Override
     public void deleteAuth(AuthToken authToken) throws DataAccessException {
-        if(!userDB.isEmpty() && userDB.get(authToken) != null) {
-            userDB.remove(authToken);
+        if (authDB.containsKey(authToken)) {
+            authDB.remove(authToken);
         } else {
             throw new DataAccessException("Error: unauthorized");
         }
     }
     @Override
     public String getUsername(AuthToken authToken) {
-        return userDB.get(authToken);
+        return authDB.get(authToken);
     }
 
     @Override
     public boolean checkAuthToken(AuthToken authToken) {
-        if (!userDB.isEmpty() & userDB.get(authToken) != null) {
-            return true;
-        }
-        return false;
+      return !authDB.isEmpty() && authDB.get(authToken) != null;
     }
 
     @Override
-    public AuthToken createAuth(String username) {
+    public AuthToken createAuthToken(String username) {
         AuthToken auth = new AuthToken(UUID.randomUUID().toString());
-        userDB.put(auth, username);
+        authDB.put(auth, username);
         return auth;
+    }
+    @Override
+    public AuthToken checkAuthTokenExist(String username) {
+        for (Map.Entry<AuthToken, String> entry : authDB.entrySet()) {
+            if (Objects.equals(entry.getValue(), username)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void delete() {
+        authDB.clear();
     }
 }

@@ -1,6 +1,4 @@
 package response;
 
-import request.AuthToken;
-
-public record UserResponse(String username, AuthToken auth){
+public record UserResponse(String username, String authToken){
 }

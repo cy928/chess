@@ -4,10 +4,13 @@ import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import request.AuthToken;
 import request.JoinGameRequest;
+import response.ErrorResponse;
 import service.GameService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import java.util.Objects;
 
 public class JoinGameHandler implements Route {
     @Override
@@ -17,10 +20,18 @@ public class JoinGameHandler implements Route {
         GameService service = new GameService();
         try {
             service.joinGame(authToken, game_info);
+            response.status(200);
+            return "{}";
         } catch (DataAccessException e) {
-            throw e;
+            if (Objects.equals(e.getMessage(), "Error: bad request" )) {
+                response.status(400);
+            } else if(Objects.equals(e.getMessage(),"Error: unauthorized")){
+                response.status(401);
+            } else if(e.getMessage().equals("Error: already taken" )){
+                response.status(403);}
+            ErrorResponse err = new ErrorResponse(e.getMessage());
+            response.body(new Gson().toJson(err));
+            return new Gson().toJson(err);
         }
-        response.status(200);
-        return response;
     }
 }

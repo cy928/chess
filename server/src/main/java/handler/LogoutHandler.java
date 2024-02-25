@@ -1,7 +1,9 @@
 package handler;
 
+import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import request.AuthToken;
+import response.ErrorResponse;
 import service.UserService;
 import spark.Request;
 import spark.Response;
@@ -14,11 +16,14 @@ public class LogoutHandler implements Route {
         UserService service = new UserService();
         try {
             service.logout(authToken);
+            response.status(200);
+            return "{}";
         } catch (DataAccessException e) {
             response.status(401);
-            throw e;
+            ErrorResponse err = new ErrorResponse(e.getMessage());
+            response.body(new Gson().toJson(err));
+            return new Gson().toJson(err);
         }
-        response.status(200);
-        return response;
+
     }
 }

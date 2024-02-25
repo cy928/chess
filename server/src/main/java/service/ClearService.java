@@ -1,16 +1,16 @@
 package service;
-import dataAccess.AuthDAO;
-import dataAccess.GameDAO;
-import dataAccess.UserDAO;
+import dataAccess.MemoryAuthDAO;
+import dataAccess.MemoryGameDAO;
+import dataAccess.MemoryUserDAO;
 
 public class ClearService {
     public boolean delete() {
-        AuthDAO authDAO = new AuthDAO();
+        MemoryAuthDAO authDAO = new MemoryAuthDAO();
         authDAO.delete();
-        UserDAO userDAO = new UserDAO();
-        userDAO.delete();
-        GameDAO gameDAO = new GameDAO();
+        MemoryGameDAO gameDAO = new MemoryGameDAO();
         gameDAO.delete();
+        MemoryUserDAO userDAO = new MemoryUserDAO();
+        userDAO.delete();
         return true;
     }
 }

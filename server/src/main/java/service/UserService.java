@@ -4,41 +4,32 @@ import dataAccess.DataAccessException;
 import request.AuthToken;
 import request.LoginRequest;
 import request.RegisterRequest;
-import dataAccess.AuthDAO;
-import dataAccess.UserDAO;
+import dataAccess.MemoryAuthDAO;
+import dataAccess.MemoryUserDAO;
 
 
 
 public class UserService {
     public AuthToken login(LoginRequest information) throws DataAccessException {
-        AuthDAO authDAO = new AuthDAO();
-        UserDAO userDAO = new UserDAO();
+        MemoryAuthDAO authDAO = new MemoryAuthDAO();
+        MemoryUserDAO userDAO = new MemoryUserDAO();
         if (Boolean.FALSE.equals(userDAO.checkCredential(information))) {
             throw new DataAccessException("Error: unauthorized");
         }
-        AuthToken auth = authDAO.createAuthToken(information.username());
-        return auth;
+        return authDAO.createAuthToken(information.username());
     }
-    public void logout(AuthToken auth) throws DataAccessException {
-        AuthDAO authDAO = new AuthDAO();
-        try {
-            authDAO.deleteAuth(auth);
-        } catch (DataAccessException e) {
-            throw e;
-        }
+    public boolean logout(AuthToken authToken) throws DataAccessException {
+        MemoryAuthDAO authDAO = new MemoryAuthDAO();
+        authDAO.deleteAuthToken(authToken);
+        return true;
     }
     public AuthToken register(RegisterRequest information) throws DataAccessException {
+        MemoryAuthDAO authDAO = new MemoryAuthDAO();
+        MemoryUserDAO userDAO = new MemoryUserDAO();
         if (information.username() == null || information.password() == null || information.email() == null) {
             throw new DataAccessException("Error: bad request");
         }
-        AuthDAO authDAO = new AuthDAO();
-        UserDAO userDAO = new UserDAO();
-        try {
-            userDAO.createUser(information);
-            AuthToken auth = authDAO.createAuthToken(information.username());
-            return auth;
-        } catch (DataAccessException e) {
-            throw e;
-        }
+        userDAO.createUser(information);
+        return authDAO.createAuthToken(information.username());
     }
 }

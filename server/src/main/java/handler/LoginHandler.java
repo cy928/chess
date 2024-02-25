@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import request.AuthToken;
 import request.LoginRequest;
-import response.ErrorResponse;
-import response.UserResponse;
+import result.ErrorResult;
+import result.UserResult;
 import service.UserService;
 import spark.Request;
 import spark.Response;
@@ -13,19 +13,17 @@ import spark.Route;
 
 public class LoginHandler implements Route {
     @Override
-    public Object handle(Request request, Response response) throws DataAccessException {
-        var user_info = new Gson().fromJson(request.body(), LoginRequest.class);
+    public Object handle(Request request, Response response) {
+        var userInfo = new Gson().fromJson(request.body(), LoginRequest.class);
         UserService service = new UserService();
         try {
-            AuthToken authToken = service.login(user_info);
-            UserResponse resp = new UserResponse(user_info.username(), authToken.authToken());
+            AuthToken authToken = service.login(userInfo);
+            UserResult resp = new UserResult(userInfo.username(), authToken.authToken());
             response.status(200);
-            response.body(new Gson().toJson(resp));
             return new Gson().toJson(resp);
         } catch (DataAccessException e) {
             response.status(401);
-            ErrorResponse err = new ErrorResponse(e.getMessage());
-            response.body(new Gson().toJson(err));
+            ErrorResult err = new ErrorResult(e.getMessage());
             return new Gson().toJson(err);
         }
     }

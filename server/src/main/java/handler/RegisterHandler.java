@@ -3,8 +3,8 @@ package handler;
 import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import request.AuthToken;
-import response.ErrorResponse;
-import response.UserResponse;
+import result.ErrorResult;
+import result.UserResult;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -16,11 +16,11 @@ import java.util.Objects;
 public class RegisterHandler implements Route {
     @Override
     public Object handle(Request request, Response response) {
-        var register_info = new Gson().fromJson(request.body(), RegisterRequest.class);
+        var registerInfo = new Gson().fromJson(request.body(), RegisterRequest.class);
         UserService service = new UserService();
         try {
-            AuthToken authToken=service.register(register_info);
-            var resp=new UserResponse(register_info.username(), authToken.authToken());
+            AuthToken authToken = service.register(registerInfo);
+            var resp = new UserResult(registerInfo.username(), authToken.authToken());
             response.status(200);
             return new Gson().toJson(resp);
         } catch (DataAccessException e) {
@@ -29,8 +29,7 @@ public class RegisterHandler implements Route {
             } else if (Objects.equals(e.getMessage(), "Error: already taken")) {
                 response.status(403);
             }
-            ErrorResponse err = new ErrorResponse(e.getMessage());
-            response.body(new Gson().toJson(err));
+            ErrorResult err = new ErrorResult(e.getMessage());
             return new Gson().toJson(err);
         }
     }

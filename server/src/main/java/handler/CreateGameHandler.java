@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import request.AuthToken;
 import request.CreateGameRequest;
-import response.CreateGameResponse;
-import response.ErrorResponse;
+import result.CreateGameResult;
+import result.ErrorResult;
 import service.GameService;
 import spark.Request;
 import spark.Response;
@@ -13,14 +13,13 @@ import spark.Route;
 
 public class CreateGameHandler implements Route {
     @Override
-    public Object handle(Request request, Response response) throws DataAccessException {
-        var game_info = new Gson().fromJson(request.body(), CreateGameRequest.class);
+    public Object handle(Request request, Response response) {
+        var gameInfo = new Gson().fromJson(request.body(), CreateGameRequest.class);
         AuthToken authToken = new AuthToken(request.headers("authorization"));
         GameService service = new GameService();
         try {
-            CreateGameResponse resp = service.createGame(authToken, game_info);
+            CreateGameResult resp = service.createGame(authToken, gameInfo);
             response.status(200);
-            response.body(new Gson().toJson(resp));
             return new Gson().toJson(resp);
         } catch (DataAccessException e) {
             if (e.getMessage().equals("Error: bad request" )) {
@@ -28,8 +27,7 @@ public class CreateGameHandler implements Route {
             } else if (e.getMessage().equals("Error: unauthorized" )){
                 response.status(401);
             }
-            ErrorResponse err = new ErrorResponse(e.getMessage());
-            response.body(new Gson().toJson(err));
+            ErrorResult err = new ErrorResult(e.getMessage());
             return new Gson().toJson(err);
         }
     }

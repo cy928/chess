@@ -11,7 +11,7 @@ public interface AuthInterface {
 
     public AuthToken createAuthToken(String username);
 
-    AuthToken checkAuthTokenExist(String username);
+  AuthToken checkAuthTokenExist(String username);
 
-    void delete();
+  void delete();
 }

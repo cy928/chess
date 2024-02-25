@@ -16,9 +16,8 @@ public class UserDAO implements UserInterface {
             userDB.put(information.username(), info_list);
         }
     }
-
     @Override
-    public Boolean checkCredential(LoginRequest information) {
+    public boolean checkCredential(LoginRequest information) {
         if (userDB.get(information.username()) != null) {
             String password = userDB.get(information.username()).get(0);
             return Objects.equals(password, information.password());
@@ -26,7 +25,5 @@ public class UserDAO implements UserInterface {
         return false;
     }
     @Override
-    public void delete() {
-        userDB.clear();
-    }
+    public void delete() { userDB.clear(); }
 }

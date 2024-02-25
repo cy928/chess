@@ -18,12 +18,10 @@ public class AuthDAO implements AuthInterface {
     public String getUsername(AuthToken authToken) {
         return authDB.get(authToken);
     }
-
     @Override
     public boolean checkAuthToken(AuthToken authToken) {
-      return !authDB.isEmpty() && authDB.get(authToken) != null;
+        return !authDB.isEmpty() && authDB.get(authToken) != null;
     }
-
     @Override
     public AuthToken createAuthToken(String username) {
         AuthToken auth = new AuthToken(UUID.randomUUID().toString());
@@ -39,9 +37,6 @@ public class AuthDAO implements AuthInterface {
         }
         return null;
     }
-
     @Override
-    public void delete() {
-        authDB.clear();
-    }
+    public void delete() { authDB.clear(); }
 }

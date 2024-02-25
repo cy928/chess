@@ -23,6 +23,11 @@ public class CreateGameHandler implements Route {
             response.body(new Gson().toJson(resp));
             return new Gson().toJson(resp);
         } catch (DataAccessException e) {
+            if (e.getMessage().equals("Error: bad request" )) {
+                response.status(400);
+            } else if (e.getMessage().equals("Error: unauthorized" )){
+                response.status(401);
+            }
             ErrorResponse err = new ErrorResponse(e.getMessage());
             response.body(new Gson().toJson(err));
             return new Gson().toJson(err);

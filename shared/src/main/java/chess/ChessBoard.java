@@ -14,10 +14,10 @@ public class ChessBoard {
     public ChessBoard() {
         board = new ChessPiece[8][8];
     }
-    private ChessPosition w_king;
-    private ChessPosition b_king;
-    private final ArrayList<ChessPosition> w_piece = new ArrayList<>();
-    private final ArrayList<ChessPosition> b_piece = new ArrayList<>();
+    private ChessPosition wKing;
+    private ChessPosition bKing;
+    private final ArrayList<ChessPosition> wPiece = new ArrayList<>();
+    private final ArrayList<ChessPosition> bPiece= new ArrayList<>();
     /**
      * Adds a chess piece to the chessboard
      *
@@ -29,31 +29,31 @@ public class ChessBoard {
         if (piece != null) {
             if (piece.getPieceType() == ChessPiece.PieceType.KING) {
                 if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
-                    w_king = position;
+                    wKing = position;
                 } else {
-                    b_king = position;
+                    bKing = position;
                 }
             }
             if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
-                w_piece.add(position);
+                wPiece.add(position);
             } else {
-                b_piece.add(position);
+                bPiece.add(position);
             }
         }
     }
     public ChessPosition getKing(ChessGame.TeamColor color) {
         if (color == ChessGame.TeamColor.WHITE) {
-            return w_king;
+            return wKing;
         } else {
-            return b_king;
+            return bKing;
         }
     }
 
     public ArrayList<ChessPosition> getList(ChessGame.TeamColor color) {
         if (color == ChessGame.TeamColor.WHITE) {
-            return w_piece;
+            return wPiece;
         } else {
-            return b_piece;
+            return bPiece;
         }
     }
     /**

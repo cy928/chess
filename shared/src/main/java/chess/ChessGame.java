@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ChessGame {
     private ChessBoard board;
     private TeamColor turn;
-    private final chess.InvalidMoveException InvalidMoveException = new InvalidMoveException();
+    private final chess.InvalidMoveException invalidMoveException= new InvalidMoveException();
 
     public ChessGame() {
 
@@ -77,9 +77,9 @@ public class ChessGame {
         ChessPiece piece = board.getPiece(move.getStartPosition());
         Collection<ChessMove> valid = validMoves(move.getStartPosition());
         if (!valid.contains(move)) {
-            throw InvalidMoveException;
+            throw invalidMoveException;
         } else if (piece.getTeamColor() != turn) {
-            throw InvalidMoveException;
+            throw invalidMoveException;
         } else {
             if (move.getPromotionPiece() != null) {
                 piece = new ChessPiece(piece.getTeamColor(), move.getPromotionPiece());
@@ -102,21 +102,21 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-        TeamColor enemy_color;
+        TeamColor enemyColor;
         if(teamColor == TeamColor.WHITE){
-            enemy_color = TeamColor.BLACK;
+            enemyColor = TeamColor.BLACK;
         }
         else{
-            enemy_color = TeamColor.WHITE;
+            enemyColor = TeamColor.WHITE;
         }
-        ArrayList<ChessPosition> pieces_positions = board.getList(enemy_color);
-        ChessPosition King_position = board.getKing(teamColor);
-        for (ChessPosition position : pieces_positions) {
+        ArrayList<ChessPosition> piecesPositions = board.getList(enemyColor);
+        ChessPosition kingPosition = board.getKing(teamColor);
+        for (ChessPosition position : piecesPositions) {
             ChessPiece piece = board.getPiece(position);
             if (piece != null) {
                 Collection<ChessMove> moves = piece.pieceMoves(board, position);
                 for (ChessMove move : moves) {
-                    if (move.getEndPosition().equals(King_position)) {
+                    if (move.getEndPosition().equals(kingPosition)) {
                         return true;
                     }
                 }
@@ -143,15 +143,15 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        ArrayList<ChessPosition> pieces_positions = new ArrayList<>(board.getList(teamColor));
-        ArrayList<ChessMove> valid_moves = new ArrayList<>();
-        for (ChessPosition position : pieces_positions){
+        ArrayList<ChessPosition> piecesPositions = new ArrayList<>(board.getList(teamColor));
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
+        for (ChessPosition position : piecesPositions){
             ChessPiece piece = board.getPiece(position);
             if (piece != null && piece.getTeamColor() == teamColor) {
-                valid_moves.addAll(validMoves(position));
+                validMoves.addAll(validMoves(position));
             }
         }
-      return valid_moves.isEmpty();
+      return validMoves.isEmpty();
     }
 
     /**
@@ -177,11 +177,11 @@ public class ChessGame {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChessGame chessGame=(ChessGame) o;
-        return Objects.equals(board, chessGame.board) && turn == chessGame.turn && Objects.equals(InvalidMoveException, chessGame.InvalidMoveException);
+        return Objects.equals(board, chessGame.board) && turn == chessGame.turn && Objects.equals(invalidMoveException, chessGame.invalidMoveException);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(board, turn, InvalidMoveException);
+        return Objects.hash(board, turn, invalidMoveException);
     }
 }

@@ -1,15 +1,18 @@
 package service;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
-import dataAccess.MemoryUserDAO;
+import dataAccess.*;
+
+import java.sql.SQLException;
 
 public class ClearService {
-    public boolean delete() {
-        MemoryAuthDAO authDAO = new MemoryAuthDAO();
+    public boolean delete() throws SQLException, DataAccessException {
+//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
+        MySqlAuthDAO authDAO = new MySqlAuthDAO();
         authDAO.delete();
-        MemoryGameDAO gameDAO = new MemoryGameDAO();
+//        MemoryGameDAO gameDAO = new MemoryGameDAO();
+        MySqlGameDAO gameDAO = new MySqlGameDAO();
         gameDAO.delete();
-        MemoryUserDAO userDAO = new MemoryUserDAO();
+//        MemoryUserDAO userDAO = new MemoryUserDAO();
+        MySqlUserDAO userDAO = new MySqlUserDAO();
         userDAO.delete();
         return true;
     }

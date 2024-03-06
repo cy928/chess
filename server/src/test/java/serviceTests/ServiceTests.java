@@ -9,6 +9,8 @@ import service.ClearService;
 import service.GameService;
 import service.UserService;
 
+import java.sql.SQLException;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ServiceTests {
   private final String username = "Phoebe";
@@ -54,7 +56,7 @@ class ServiceTests {
   }
   @Order(5)
   @Test
-  public void successLogout() throws DataAccessException {
+  public void successLogout() throws DataAccessException, SQLException {
     boolean result = userService.logout(authToken);
     Assertions.assertTrue(result, "Logout should return true");
   }
@@ -117,7 +119,7 @@ class ServiceTests {
   }
   @Order(12)
   @Test
-  public void failListGame() throws DataAccessException {
+  public void failListGame() throws DataAccessException, SQLException {
     userService.logout(authToken);
     Assertions.assertThrows(DataAccessException.class, () -> {
       gameService.getGameList(authToken);
@@ -125,7 +127,7 @@ class ServiceTests {
   }
   @Order(13)
   @Test
-  public void successClearApplication() throws DataAccessException{
+  public void successClearApplication() throws DataAccessException, SQLException {
     AuthToken authToken1 = userService.register(new RegisterRequest("Seb","0605","seb605gmail.com"));
     AuthToken authToken2 = userService.register(new RegisterRequest("Amy","0325","amy325@gmail.com"));
     authToken = userService.login(new LoginRequest(username, password));

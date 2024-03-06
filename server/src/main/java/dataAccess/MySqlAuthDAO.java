@@ -66,7 +66,7 @@ public class MySqlAuthDAO implements AuthDAO{
     }
 
     @Override
-    public void delete() throws DataAccessException, SQLException {
+    public void delete() throws DataAccessException {
         try (var conn = DatabaseManager.getConnection()) {
             try (var preparedStatement=conn.prepareStatement("TRUNCATE auth")) {
                 preparedStatement.executeUpdate();

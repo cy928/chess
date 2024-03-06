@@ -7,8 +7,7 @@ import java.util.*;
 public class MemoryAuthDAO implements AuthDAO {
     static Map<AuthToken, String> authDB= new HashMap<>();
     @Override
-    public AuthToken createAuthToken(String username) {
-        AuthToken auth = new AuthToken(UUID.randomUUID().toString());
+    public AuthToken createAuthToken(AuthToken auth, String username) {
         authDB.put(auth, username);
         return auth;
     }

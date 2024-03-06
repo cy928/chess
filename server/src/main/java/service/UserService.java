@@ -7,6 +7,7 @@ import request.RegisterRequest;
 import dataAccess.MemoryAuthDAO;
 import dataAccess.MemoryUserDAO;
 
+import java.util.UUID;
 
 
 public class UserService {
@@ -16,7 +17,8 @@ public class UserService {
         if (Boolean.FALSE.equals(userDAO.checkCredential(information))) {
             throw new DataAccessException("Error: unauthorized");
         }
-        return authDAO.createAuthToken(information.username());
+        AuthToken auth = new AuthToken(UUID.randomUUID().toString());
+        return authDAO.createAuthToken(auth, information.username());
     }
     public boolean logout(AuthToken authToken) throws DataAccessException {
         MemoryAuthDAO authDAO = new MemoryAuthDAO();
@@ -30,6 +32,7 @@ public class UserService {
             throw new DataAccessException("Error: bad request");
         }
         userDAO.createUser(information);
-        return authDAO.createAuthToken(information.username());
+        AuthToken auth = new AuthToken(UUID.randomUUID().toString());
+        return authDAO.createAuthToken(auth, information.username());
     }
 }

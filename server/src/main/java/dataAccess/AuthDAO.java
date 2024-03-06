@@ -2,12 +2,14 @@ package dataAccess;
 
 import request.AuthToken;
 
+import java.sql.SQLException;
+
 public interface AuthDAO {
-    boolean checkAuthTokenInvalid(AuthToken authToken);
+    boolean checkAuthTokenInvalid(AuthToken authToken) throws DataAccessException, SQLException;
 
-    AuthToken createAuthToken(AuthToken auth, String username);
+    void createAuthToken(AuthToken auth, String username) throws DataAccessException;
 
-    void deleteAuthToken(AuthToken authToken) throws DataAccessException;
-    String getUsername(AuthToken authToken);
-    void delete();
+    void deleteAuthToken(AuthToken authToken) throws DataAccessException, SQLException;
+    String getUsername(AuthToken authToken) throws DataAccessException;
+    void delete() throws DataAccessException, SQLException;
 }

@@ -7,9 +7,8 @@ import java.util.*;
 public class MemoryAuthDAO implements AuthDAO {
     static Map<AuthToken, String> authDB= new HashMap<>();
     @Override
-    public AuthToken createAuthToken(AuthToken auth, String username) {
+    public void createAuthToken(AuthToken auth, String username) {
         authDB.put(auth, username);
-        return auth;
     }
     @Override
     public void deleteAuthToken(AuthToken authToken) throws DataAccessException {

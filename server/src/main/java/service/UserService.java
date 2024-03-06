@@ -18,7 +18,8 @@ public class UserService {
             throw new DataAccessException("Error: unauthorized");
         }
         AuthToken auth = new AuthToken(UUID.randomUUID().toString());
-        return authDAO.createAuthToken(auth, information.username());
+        authDAO.createAuthToken(auth, information.username());
+        return auth;
     }
     public boolean logout(AuthToken authToken) throws DataAccessException {
         MemoryAuthDAO authDAO = new MemoryAuthDAO();
@@ -33,6 +34,7 @@ public class UserService {
         }
         userDAO.createUser(information);
         AuthToken auth = new AuthToken(UUID.randomUUID().toString());
-        return authDAO.createAuthToken(auth, information.username());
+        authDAO.createAuthToken(auth, information.username());
+        return auth;
     }
 }

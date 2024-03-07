@@ -32,7 +32,11 @@ public class GameService {
             throw new DataAccessException("Error: unauthorized");
         }
         String username = authDAO.getUsername(authToken);
-        gameDAO.joinGame(username, information);
+        try {
+            gameDAO.joinGame(username, information);
+        } catch (DataAccessException e) {
+            throw e;
+        }
         return true;
     }
     public ListGameResult getGameList(AuthToken authToken) throws DataAccessException{
@@ -43,7 +47,6 @@ public class GameService {
         if (authDAO.checkAuthTokenInvalid(authToken)) {
             throw new DataAccessException("Error: unauthorized");
         }
-        String username = authDAO.getUsername(authToken);
-        return gameDAO.getGameList(username);
+        return gameDAO.getGameList();
     }
 }

@@ -53,24 +53,8 @@ public class MemoryGameDAO implements GameDAO {
         throw new DataAccessException("Error: bad request");
     }
     @Override
-    public ListGameResult getGameList(String username) {
-        List<Game> gameList = new ArrayList<>();
-        for (Game game : gameDB){
-            if (game.blackUsername() != null) {
-                if (Objects.equals(game.blackUsername(), username)) {
-                    gameList.add(game);
-                }
-            } else if(game.whiteUsername() != null) {
-                if (Objects.equals(game.whiteUsername(), username)) {
-                    gameList.add(game);
-                }
-            }
-        }
-        if (!gameList.isEmpty()) {
-            return new ListGameResult(gameList);
-        } else {
-            return new ListGameResult(gameDB);
-        }
+    public ListGameResult getGameList() {
+        return new ListGameResult(gameDB);
     }
     @Override
     public void delete() { gameDB.clear(); }

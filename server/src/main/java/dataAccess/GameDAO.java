@@ -8,7 +8,7 @@ import result.ListGameResult;
 public interface GameDAO {
     CreateGameResult createGame(String username, CreateGameRequest information) throws DataAccessException;
     void joinGame(String username, JoinGameRequest information) throws DataAccessException;
-    ListGameResult getGameList(String username) throws DataAccessException;
+    ListGameResult getGameList() throws DataAccessException;
     void delete() throws DataAccessException ;
 
 }

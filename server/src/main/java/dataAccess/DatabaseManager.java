@@ -31,9 +31,9 @@ public class DatabaseManager {
             """
             CREATE TABLE IF NOT EXISTS  gameTable (
               `gameID` int NOT NULL AUTO_INCREMENT,
-              `gameName` varchar(256) NOT NULL,
               `blackUsername` varchar(256) DEFAULT NULL,
               `whiteUsername` varchar(256) DEFAULT NULL,
+              `gameName` varchar(256) NOT NULL,
               `chessGame` TEXT NOT NULL,
               PRIMARY KEY (`gameID`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

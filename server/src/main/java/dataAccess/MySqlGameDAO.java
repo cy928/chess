@@ -17,33 +17,78 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 public class MySqlGameDAO implements GameDAO {
     @Override
     public CreateGameResult createGame(String username, CreateGameRequest information) throws DataAccessException {
         try (var connection=DatabaseManager.getConnection()) {
-            try (var preparedStatement=connection.prepareStatement("INSERT INTO gameTable (gameName, chessGame) VALUES(?, ?)")) {
+            try (var preparedStatement=connection.prepareStatement("INSERT INTO gameTable (gameName, chessGame) VALUES(?, ?)", RETURN_GENERATED_KEYS)) {
                 preparedStatement.setString(1, information.gameName());
                 ChessBoard chessBoard = new ChessBoard();
                 chessBoard.resetBoard();
                 ChessGame chessGame = new ChessGame();
                 chessGame.setBoard(chessBoard);
-                preparedStatement.setString(2, new Gson().toJson(chessGame));
+                String jsonGame = "game";
+                preparedStatement.setString(2, jsonGame);
                 preparedStatement.executeUpdate();
-                try (ResultSet generatedKeys=preparedStatement.getGeneratedKeys()) {
-                    int gameID = 0;
-                    if (generatedKeys.next()) {
-                        gameID = generatedKeys.getInt(1);
-                    }
-                    return new CreateGameResult(gameID);
+                ResultSet generatedKeys=preparedStatement.getGeneratedKeys();
+                int gameID = 0;
+                if (generatedKeys.next()) {
+                    gameID = generatedKeys.getInt(1);
                 }
+                return new CreateGameResult(gameID);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
     public void joinGame(String username, JoinGameRequest information) throws DataAccessException {
+        try (var connection=DatabaseManager.getConnection()) {
+            try (var preparedStatement=connection.prepareStatement("SELECT whiteUsername, blackUsername FROM gameTable WHERE gameID=?")) {
+                preparedStatement.setInt(1, information.gameID());
+                try (var rs=preparedStatement.executeQuery()) {
+                    if (rs.next()) {
+                        var whiteUsername=rs.getString("whiteUsername");
+                        var blackUsername=rs.getString("blackUsername");
+                        if (information.playerColor() == null) {
+                            return;
+                        }
+                        if (information.playerColor().equals("WHITE")){
+                            if (whiteUsername != null) {
+                                throw new DataAccessException("Error: already taken");
+                            }
+                            else{
+                                try (var preparedStatement2 = connection.prepareStatement("UPDATE gameTable SET whiteUsername=? WHERE gameID=?")) {
+                                    preparedStatement2.setString(1, username);
+                                    preparedStatement2.setInt(2, information.gameID());
+                                    preparedStatement2.executeUpdate();
+                                }
+                            }
+                        }
+                        else {
+                            if (blackUsername != null) {
+                                throw new DataAccessException("Error: already taken");
+                            }
+                            else{
+                                try (var preparedStatement3 = connection.prepareStatement("UPDATE gameTable SET blackUsername=? WHERE gameID=?")) {
+                                    preparedStatement3.setString(1, username);
+                                    preparedStatement3.setInt(2, information.gameID());
+                                    preparedStatement3.executeUpdate();
+                                }
+                            }
+                        }
+                    }
 
+                    else {
+                        throw new DataAccessException( "Error: bad request");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
     }
 
     @Override

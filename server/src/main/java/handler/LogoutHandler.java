@@ -23,6 +23,7 @@ public class LogoutHandler implements Route {
         } catch (DataAccessException | SQLException e) {
             response.status(401);
             ErrorResult err = new ErrorResult(e.getMessage());
+            response.body(new Gson().toJson(err));
             return new Gson().toJson(err);
         }
 

@@ -22,6 +22,7 @@ public class RegisterHandler implements Route {
             AuthToken authToken = service.register(registerInfo);
             var resp = new UserResult(registerInfo.username(), authToken.authToken());
             response.status(200);
+            response.body(new Gson().toJson(resp));
             return new Gson().toJson(resp);
         } catch (DataAccessException e) {
             if (Objects.equals(e.getMessage(), "Error: bad request")) {
@@ -30,6 +31,7 @@ public class RegisterHandler implements Route {
                 response.status(403);
             }
             ErrorResult err = new ErrorResult(e.getMessage());
+            response.body(new Gson().toJson(err));
             return new Gson().toJson(err);
         }
     }

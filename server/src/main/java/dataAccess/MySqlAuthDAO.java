@@ -8,9 +8,9 @@ public class MySqlAuthDAO implements AuthDAO{
 
     @Override
     public void createAuthToken(AuthToken authToken, String username) throws DataAccessException {
-        try (var conn = DatabaseManager.getConnection()) {
-            try (var preparedStatement = conn.prepareStatement("INSERT INTO auth(authToken, username) VALUES(?, ?)")) {
-                preparedStatement.setString(1, authToken.toString());
+        try (var connection = DatabaseManager.getConnection()) {
+            try (var preparedStatement = connection.prepareStatement("INSERT INTO authTable (authToken, username) VALUES(?, ?)")) {
+                preparedStatement.setString(1, authToken.authToken());
                 preparedStatement.setString(2, username);
                 preparedStatement.executeUpdate();
             }
@@ -21,9 +21,9 @@ public class MySqlAuthDAO implements AuthDAO{
 
     @Override
     public boolean checkAuthTokenInvalid(AuthToken authToken) throws DataAccessException {
-        try (var conn = DatabaseManager.getConnection()) {
-            try (var preparedStatement = conn.prepareStatement("SELECT * FROM auth WHERE authToken=?")) {
-                preparedStatement.setString(1, authToken.toString());
+        try (var connection = DatabaseManager.getConnection()) {
+            try (var preparedStatement = connection.prepareStatement("SELECT * FROM authTable WHERE authToken=?")) {
+                preparedStatement.setString(1, authToken.authToken());
                 try (var result = preparedStatement.executeQuery()) {
                     if (result.next()) {
                         return false;
@@ -31,28 +31,28 @@ public class MySqlAuthDAO implements AuthDAO{
                 }
             }
         } catch (SQLException e) {
-            return true;
+            throw new DataAccessException(e.getMessage());
         }
         return true;
     }
 
     @Override
     public void deleteAuthToken(AuthToken authToken) throws DataAccessException, SQLException {
-        try (var conn = DatabaseManager.getConnection()) {
-            try (var preparedStatement=conn.prepareStatement("DELETE from auth WHERE authToken=?")) {
-                preparedStatement.setString(1, authToken.toString());
+        try (var connection = DatabaseManager.getConnection()) {
+            try (var preparedStatement=connection.prepareStatement("DELETE FROM authTable WHERE authToken=?")) {
+                preparedStatement.setString(1, authToken.authToken());
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-                throw new DataAccessException(e.getMessage());
+                throw new DataAccessException("Error: unauthorized");
         }
     }
 
     @Override
     public String getUsername(AuthToken authToken) throws DataAccessException {
-        try (var conn = DatabaseManager.getConnection()) {
-            try (var preparedStatement = conn.prepareStatement("SELECT username FROM auth WHERE authToken=?")) {
-                preparedStatement.setString(1, authToken.toString());
+        try (var connection = DatabaseManager.getConnection()) {
+            try (var preparedStatement = connection.prepareStatement("SELECT username FROM authTable WHERE authToken=?")) {
+                preparedStatement.setString(1, authToken.authToken());
                 try (var result=preparedStatement.executeQuery()) {
                     if (result.next()) {
                         return result.getString("username");
@@ -68,7 +68,7 @@ public class MySqlAuthDAO implements AuthDAO{
     @Override
     public void delete() throws DataAccessException {
         try (var conn = DatabaseManager.getConnection()) {
-            try (var preparedStatement=conn.prepareStatement("TRUNCATE auth")) {
+            try (var preparedStatement=conn.prepareStatement("TRUNCATE authTable")) {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {

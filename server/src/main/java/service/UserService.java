@@ -25,8 +25,15 @@ public class UserService {
     public boolean logout(AuthToken authToken) throws DataAccessException, SQLException {
 //        MemoryAuthDAO authDAO = new MemoryAuthDAO();
         MySqlAuthDAO authDAO = new MySqlAuthDAO();
-        authDAO.deleteAuthToken(authToken);
-        return true;
+        if (authDAO.checkAuthTokenInvalid(authToken)){
+            throw new DataAccessException("Error: unauthorized");
+        }
+        try {
+            authDAO.deleteAuthToken(authToken);
+            return true;
+        } catch (DataAccessException e) {
+            throw e;
+        }
     }
     public AuthToken register(RegisterRequest information) throws DataAccessException {
 //        MemoryAuthDAO authDAO = new MemoryAuthDAO();
@@ -36,9 +43,13 @@ public class UserService {
         if (information.username() == null || information.password() == null || information.email() == null) {
             throw new DataAccessException("Error: bad request");
         }
-        userDAO.createUser(information);
-        AuthToken auth = new AuthToken(UUID.randomUUID().toString());
-        authDAO.createAuthToken(auth, information.username());
-        return auth;
+        try {
+            userDAO.createUser(information);
+            AuthToken auth = new AuthToken(UUID.randomUUID().toString());
+            authDAO.createAuthToken(auth, information.username());
+            return auth;
+        } catch (DataAccessException e) {
+            throw e;
+        }
     }
 }

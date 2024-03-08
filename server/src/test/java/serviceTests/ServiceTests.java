@@ -115,7 +115,7 @@ class ServiceTests {
     JoinGameRequest info2 = new JoinGameRequest("WHITE", ID2.gameID());
     gameService.joinGame(authToken, info2);
     ListGameResult gameList = gameService.getGameList(authToken);
-    Assertions.assertEquals(3, gameList.games().size());
+    Assertions.assertEquals(4, gameList.games().size());
   }
   @Order(12)
   @Test

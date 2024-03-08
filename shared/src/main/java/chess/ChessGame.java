@@ -12,8 +12,6 @@ import java.util.Objects;
 public class ChessGame {
     private ChessBoard board;
     private TeamColor turn;
-    private final chess.InvalidMoveException invalidMoveException= new InvalidMoveException();
-
     public ChessGame() {
 
     }
@@ -77,9 +75,9 @@ public class ChessGame {
         ChessPiece piece = board.getPiece(move.getStartPosition());
         Collection<ChessMove> valid = validMoves(move.getStartPosition());
         if (!valid.contains(move)) {
-            throw invalidMoveException;
+            throw new InvalidMoveException();
         } else if (piece.getTeamColor() != turn) {
-            throw invalidMoveException;
+            throw new InvalidMoveException();
         } else {
             if (move.getPromotionPiece() != null) {
                 piece = new ChessPiece(piece.getTeamColor(), move.getPromotionPiece());
@@ -177,11 +175,11 @@ public class ChessGame {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChessGame chessGame=(ChessGame) o;
-        return Objects.equals(board, chessGame.board) && turn == chessGame.turn && Objects.equals(invalidMoveException, chessGame.invalidMoveException);
+        return Objects.equals(board, chessGame.board) && turn == chessGame.turn;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(board, turn, invalidMoveException);
+        return Objects.hash(board, turn);
     }
 }

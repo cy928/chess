@@ -9,41 +9,30 @@ import result.ListGameResult;
 
 public class GameService {
     public CreateGameResult createGame(AuthToken authToken, CreateGameRequest information) throws DataAccessException{
-//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
-//        MemoryGameDAO gameDAO = new MemoryGameDAO();
-        MySqlAuthDAO authDAO = new MySqlAuthDAO();
-        MySqlGameDAO gameDAO = new MySqlGameDAO();
+        SqlAuthDAO authDAO = new SqlAuthDAO();
+        SqlGameDAO gameDAO = new SqlGameDAO();
         if (information.gameName() == null) {
             throw new DataAccessException("Error: bad request");
         } else if (authDAO.checkAuthTokenInvalid(authToken)) {
             throw new DataAccessException("Error: unauthorized");
         }
-        String username = authDAO.getUsername(authToken);
-        return gameDAO.createGame(username, information);
+        return gameDAO.createGame(information);
     }
     public boolean joinGame(AuthToken authToken, JoinGameRequest information) throws DataAccessException{
-//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
-//        MemoryGameDAO gameDAO = new MemoryGameDAO();
-        MySqlAuthDAO authDAO = new MySqlAuthDAO();
-        MySqlGameDAO gameDAO = new MySqlGameDAO();
+        SqlAuthDAO authDAO = new SqlAuthDAO();
+        SqlGameDAO gameDAO = new SqlGameDAO();
         if (information.gameID() == null) {
             throw new DataAccessException("Error: bad request");
         } else if (authDAO.checkAuthTokenInvalid(authToken)) {
             throw new DataAccessException("Error: unauthorized");
         }
         String username = authDAO.getUsername(authToken);
-        try {
-            gameDAO.joinGame(username, information);
-        } catch (DataAccessException e) {
-            throw e;
-        }
+        gameDAO.joinGame(username, information);
         return true;
     }
     public ListGameResult getGameList(AuthToken authToken) throws DataAccessException{
-//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
-//        MemoryGameDAO gameDAO = new MemoryGameDAO();
-        MySqlAuthDAO authDAO = new MySqlAuthDAO();
-        MySqlGameDAO gameDAO = new MySqlGameDAO();
+        SqlAuthDAO authDAO = new SqlAuthDAO();
+        SqlGameDAO gameDAO = new SqlGameDAO();
         if (authDAO.checkAuthTokenInvalid(authToken)) {
             throw new DataAccessException("Error: unauthorized");
         }

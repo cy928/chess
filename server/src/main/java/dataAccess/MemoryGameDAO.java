@@ -15,7 +15,7 @@ import java.util.Objects;
 public class MemoryGameDAO implements GameDAO {
     static List<Game> gameDB = new ArrayList<>();
     @Override
-    public CreateGameResult createGame(String username, CreateGameRequest information){
+    public CreateGameResult createGame(CreateGameRequest information){
         Integer gameID = gameDB.size()+1;
         Game game = new Game(gameID, null, null, information.gameName());
         gameDB.add(game);

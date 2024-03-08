@@ -4,7 +4,7 @@ import request.AuthToken;
 
 import java.sql.SQLException;
 
-public class MySqlAuthDAO implements AuthDAO{
+public class SqlAuthDAO implements AuthDAO{
 
     @Override
     public void createAuthToken(AuthToken authToken, String username) throws DataAccessException {

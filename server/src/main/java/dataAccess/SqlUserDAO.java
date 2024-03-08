@@ -6,7 +6,7 @@ import request.RegisterRequest;
 
 import java.sql.SQLException;
 
-public class MySqlUserDAO implements UserDAO {
+public class SqlUserDAO implements UserDAO {
     @Override
     public void createUser(RegisterRequest information) throws DataAccessException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -18,7 +18,7 @@ public class MySqlUserDAO implements UserDAO {
                 preparedStatement.setString(3, information.email());
                 preparedStatement.executeUpdate();
             }
-        } catch (SQLException e) {
+        } catch (SQLException exp) {
             throw new DataAccessException("Error: already taken");
         }
     }
@@ -36,7 +36,7 @@ public class MySqlUserDAO implements UserDAO {
                     }
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException exp) {
             return false;
         }
         return false;
@@ -48,8 +48,8 @@ public class MySqlUserDAO implements UserDAO {
             try (var preparedStatement=connection.prepareStatement("TRUNCATE userTable")) {
                 preparedStatement.executeUpdate();
             }
-        } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
+        } catch (SQLException exp) {
+            throw new DataAccessException(exp.getMessage());
         }
     }
 }

@@ -5,14 +5,11 @@ import java.sql.SQLException;
 
 public class ClearService {
     public boolean delete() throws SQLException, DataAccessException {
-//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
-        MySqlAuthDAO authDAO = new MySqlAuthDAO();
+        SqlAuthDAO authDAO = new SqlAuthDAO();
         authDAO.delete();
-//        MemoryGameDAO gameDAO = new MemoryGameDAO();
-        MySqlGameDAO gameDAO = new MySqlGameDAO();
+        SqlGameDAO gameDAO = new SqlGameDAO();
         gameDAO.delete();
-//        MemoryUserDAO userDAO = new MemoryUserDAO();
-        MySqlUserDAO userDAO = new MySqlUserDAO();
+        SqlUserDAO userDAO = new SqlUserDAO();
         userDAO.delete();
         return true;
     }

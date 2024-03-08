@@ -11,10 +11,8 @@ import java.util.UUID;
 
 public class UserService {
     public AuthToken login(LoginRequest information) throws DataAccessException {
-//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
-//        MemoryUserDAO userDAO = new MemoryUserDAO();
-        MySqlAuthDAO authDAO = new MySqlAuthDAO();
-        MySqlUserDAO userDAO = new MySqlUserDAO();
+        SqlAuthDAO authDAO = new SqlAuthDAO();
+        SqlUserDAO userDAO = new SqlUserDAO();
         if (Boolean.FALSE.equals(userDAO.checkCredential(information))) {
             throw new DataAccessException("Error: unauthorized");
         }
@@ -23,33 +21,22 @@ public class UserService {
         return auth;
     }
     public boolean logout(AuthToken authToken) throws DataAccessException, SQLException {
-//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
-        MySqlAuthDAO authDAO = new MySqlAuthDAO();
+        SqlAuthDAO authDAO = new SqlAuthDAO();
         if (authDAO.checkAuthTokenInvalid(authToken)){
             throw new DataAccessException("Error: unauthorized");
         }
-        try {
-            authDAO.deleteAuthToken(authToken);
-            return true;
-        } catch (DataAccessException e) {
-            throw e;
-        }
+        authDAO.deleteAuthToken(authToken);
+        return true;
     }
     public AuthToken register(RegisterRequest information) throws DataAccessException {
-//        MemoryAuthDAO authDAO = new MemoryAuthDAO();
-//        MemoryUserDAO userDAO = new MemoryUserDAO();
-        MySqlAuthDAO authDAO = new MySqlAuthDAO();
-        MySqlUserDAO userDAO = new MySqlUserDAO();
+        SqlAuthDAO authDAO = new SqlAuthDAO();
+        SqlUserDAO userDAO = new SqlUserDAO();
         if (information.username() == null || information.password() == null || information.email() == null) {
             throw new DataAccessException("Error: bad request");
         }
-        try {
-            userDAO.createUser(information);
-            AuthToken auth = new AuthToken(UUID.randomUUID().toString());
-            authDAO.createAuthToken(auth, information.username());
-            return auth;
-        } catch (DataAccessException e) {
-            throw e;
-        }
+        userDAO.createUser(information);
+        AuthToken auth = new AuthToken(UUID.randomUUID().toString());
+        authDAO.createAuthToken(auth, information.username());
+        return auth;
     }
 }

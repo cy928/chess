@@ -46,12 +46,24 @@ public class SqlGameDAO implements GameDAO {
                 preparedStatement.setInt(1, information.gameID());
                 try (var rs=preparedStatement.executeQuery()) {
                     if (rs.next()) {
-                        var whiteUsername=rs.getString("whiteUsername");
-                        var blackUsername=rs.getString("blackUsername");
+                        String blackUsername=rs.getString("blackUsername");
+                        String whiteUsername=rs.getString("whiteUsername");
                         if (information.playerColor() == null) {
                             return;
                         }
-                        if (information.playerColor().equals("WHITE")){
+                        if (information.playerColor().equals("BLACK")) {
+                            if (blackUsername != null) {
+                                throw new DataAccessException("Error: already taken");
+                            }
+                            else {
+                                try (var preparedStatement3 = connection.prepareStatement("UPDATE gameTable SET blackUsername=? WHERE gameID=?")) {
+                                    preparedStatement3.setString(1, username);
+                                    preparedStatement3.setInt(2, information.gameID());
+                                    preparedStatement3.executeUpdate();
+                                }
+                            }
+                        }
+                        else {
                             if (whiteUsername != null) {
                                 throw new DataAccessException("Error: already taken");
                             }
@@ -60,18 +72,6 @@ public class SqlGameDAO implements GameDAO {
                                     preparedStatement2.setString(1, username);
                                     preparedStatement2.setInt(2, information.gameID());
                                     preparedStatement2.executeUpdate();
-                                }
-                            }
-                        }
-                        else {
-                            if (blackUsername != null) {
-                                throw new DataAccessException("Error: already taken");
-                            }
-                            else{
-                                try (var preparedStatement3 = connection.prepareStatement("UPDATE gameTable SET blackUsername=? WHERE gameID=?")) {
-                                    preparedStatement3.setString(1, username);
-                                    preparedStatement3.setInt(2, information.gameID());
-                                    preparedStatement3.executeUpdate();
                                 }
                             }
                         }
@@ -85,7 +85,6 @@ public class SqlGameDAO implements GameDAO {
             throw new DataAccessException(exp.getMessage());
         }
     }
-
     @Override
     public ListGameResult getGameList() throws DataAccessException {
         List<Game> gameList = new ArrayList<>();
@@ -93,10 +92,10 @@ public class SqlGameDAO implements GameDAO {
             try (var preparedStatement=connection.prepareStatement("SELECT * FROM  gameTable ")) {
                 try (var result=preparedStatement.executeQuery()) {
                     while (result.next()) {
-                        var id=result.getInt("gameID");
-                        var whiteUsername=result.getString("whiteUsername");
-                        var blackUsername=result.getString("blackUsername");
-                        var gameName=result.getString("gameName");
+                        Integer id = result.getInt("gameID");
+                        String blackUsername = result.getString("blackUsername");
+                        String whiteUsername = result.getString("whiteUsername");
+                        String gameName=result.getString("gameName");
                         gameList.add(new Game(id, whiteUsername, blackUsername, gameName));
                     }
                     return new ListGameResult(gameList);

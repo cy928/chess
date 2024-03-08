@@ -26,7 +26,6 @@ public class SqlGameDAO implements GameDAO {
                 chessBoard.resetBoard();
                 ChessGame chessGame = new ChessGame();
                 chessGame.setBoard(chessBoard);
-//                String jsonGame = "game";
                 preparedStatement.setString(2, new Gson().toJson(chessGame));
                 preparedStatement.executeUpdate();
                 ResultSet generatedKeys=preparedStatement.getGeneratedKeys();

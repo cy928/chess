@@ -7,16 +7,16 @@ import static ui.EscapeSequences.*;
 public class Repl {
     public static State state;
     private String url;
-    private PreLogin preLogin;
-    private PostLogin postLogin;
-    private GameUI gameUI;
+    private PreLogin preLogin = new PreLogin();
+    private PostLogin postLogin = new PostLogin();
+    private GameUI gameUI = new GameUI();
 
     public Repl(String serverURL) {
         state = State.PRELOGIN;
         url = serverURL;
     }
     public void run() {
-        System.out.println("\uD83D\uDC36 Welcome to the pet store. Sign in to start.");
+        System.out.println("\uD83D\uDC36 Welcome to CS240. Sign in to start.");
         System.out.print(preLogin.help());
 
         Scanner scanner = new Scanner(System.in);
@@ -27,11 +27,11 @@ public class Repl {
 
             try {
                 if (state == State.PRELOGIN) {
-                    result = preLogin.eval(line, url);
+                    result = preLogin.eval(line, url).toString();
                 } else if (state == State.POSTLOGIN) {
-                    result = postLogin.eval(line, url);
+                    result = postLogin.eval(line, url).toString();
                 } else if (state == State.GAMEUI) {
-                    result = gameUI.eval(line, url);
+                    result = gameUI.eval(line, url).toString();
                 }
 
             System.out.print(SET_BG_COLOR_BLUE + result);

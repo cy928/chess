@@ -1,8 +1,8 @@
 package client;
 
 import dataAccess.DataAccessException;
+import result.UserResult;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PreLogin {
@@ -14,7 +14,7 @@ public class PreLogin {
                           "help - with possible commands";
         return helpText;
     }
-    public String eval(String input, String url) {
+    public Object eval(String input, String url) {
         url = url;
         try {
             var tokens = input.toLowerCase().split(" ");
@@ -26,14 +26,26 @@ public class PreLogin {
                 case "quit" -> "quit";
                 default -> help();
             };
-        } catch (DataAccessException ex) {
-            return ex.getMessage();
+        } catch (DataAccessException e) {
+            return e.getMessage();
         }
     }
-    public String register(String[] parameters) throws DataAccessException {
-
+    public UserResult register(String[] parameters) throws DataAccessException {
+        try {
+            ServerFacade server = new ServerFacade(url);
+            var result = server.register(parameters);
+            return result;
+        } catch (DataAccessException e) {
+            throw e;
+        }
     }
-    public String login(String[] parameters) throws DataAccessException {
-
+    public UserResult login(String[] parameters) throws DataAccessException {
+        try {
+            ServerFacade server = new ServerFacade(url);
+            var result = server.login(parameters);
+            return result;
+        } catch (DataAccessException e) {
+            throw e;
+        }
     }
 }

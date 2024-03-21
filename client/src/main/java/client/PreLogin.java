@@ -1,18 +1,18 @@
 package client;
 
 import dataAccess.DataAccessException;
-import result.UserResult;
 
 import java.util.Arrays;
 
 public class PreLogin {
     public String url;
     public String help() {
-        String helpText = "register <USERNAME> <PASSWORD> <EMAIL> - to create an account" +
-                          "login <USERNAME> <PASSWORD> - to play chess" +
-                          "quit - playing chess" +
-                          "help - with possible commands";
-        return helpText;
+                          return """
+                                  register <USERNAME> <PASSWORD> <EMAIL> - to create an account
+                                  login <USERNAME> <PASSWORD> - to play chess
+                                  quit - playing chess
+                                  help - with possible commands
+                                  """;
     }
     public Object eval(String input, String url) {
         url = url;
@@ -30,20 +30,20 @@ public class PreLogin {
             return e.getMessage();
         }
     }
-    public UserResult register(String[] parameters) throws DataAccessException {
+    public String register(String[] parameters) throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
-            var result = server.register(parameters);
-            return result;
+            server.register(parameters);
+            return "You have registered successfully!";
         } catch (DataAccessException e) {
             throw e;
         }
     }
-    public UserResult login(String[] parameters) throws DataAccessException {
+    public String login(String[] parameters) throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
-            var result = server.login(parameters);
-            return result;
+            server.login(parameters);
+            return "You have login successfully!";
         } catch (DataAccessException e) {
             throw e;
         }

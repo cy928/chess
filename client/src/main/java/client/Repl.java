@@ -6,17 +6,16 @@ import static ui.EscapeSequences.*;
 
 public class Repl {
     public static State state;
-    private String url;
-    private PreLogin preLogin = new PreLogin();
-    private PostLogin postLogin = new PostLogin();
-    private GameUI gameUI = new GameUI();
+    public static String url;
+    private final PreLogin preLogin = new PreLogin();
+    private final PostLogin postLogin = new PostLogin();
 
     public Repl(String serverURL) {
         state = State.PRELOGIN;
         url = serverURL;
     }
     public void run() {
-        System.out.println("\uD83D\uDC36 Welcome to CS240. Sign in to start.");
+        System.out.println("\uD83D\uDC36 Welcome to Chess. Sign in to start.");
         System.out.print(preLogin.help());
 
         Scanner scanner = new Scanner(System.in);
@@ -30,11 +29,9 @@ public class Repl {
                     result = preLogin.eval(line, url).toString();
                 } else if (state == State.POSTLOGIN) {
                     result = postLogin.eval(line, url).toString();
-                } else if (state == State.GAMEUI) {
-                    result = gameUI.eval(line, url).toString();
                 }
 
-            System.out.print(SET_BG_COLOR_BLUE + result);
+            System.out.print(result);
             } catch (Throwable e) {
                 var msg = e.toString();
                 System.out.print(msg);
@@ -44,6 +41,6 @@ public class Repl {
     }
 
     private void printPrompt() {
-        System.out.print("\n" + SET_BG_COLOR_BLUE + ">>>" + SET_BG_COLOR_BLUE);
+        System.out.print("\n>>>");
     }
 }

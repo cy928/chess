@@ -7,14 +7,15 @@ import java.util.Arrays;
 public class PostLogin {
     public String url;
     public String help() {
-        String helpText = "create <NAME> - a game" +
-                "list - games" +
-                "join <ID> [WHITE|BLACK|<empty>] - a game" +
-                "observe <ID> - a game" +
-                "logout - when you are done" +
-                "quit - playing chess" +
-                "help - with possible commands";
-        return helpText;
+          return """
+                  create <NAME> - a game
+                  list - games
+                  join <ID> [WHITE|BLACK|<empty>] - a game
+                  observe <ID> - a game
+                  logout - when you are done
+                  quit - playing chess
+                  help - with possible commands
+                  """;
     }
     public Object eval(String input, String url) {
         try {
@@ -25,27 +26,29 @@ public class PostLogin {
                 case "create" -> create(parameters);
                 case "list" -> list(parameters);
                 case "join" -> join(parameters);
-                case "observe" -> observe(parameters);
+                case "observe" -> observe();
                 case "logout" -> logout();
                 case "quit" -> "quit";
                 default -> help();
             };
-        } catch (DataAccessException ex) {
-            return ex.getMessage();
+        } catch (DataAccessException e) {
+            return e.getMessage();
         }
     }
     public Object create(String[] parameters) throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
-            return server.create(parameters);
+            server.create(parameters);
+            return "You have created a game!";
         } catch (DataAccessException e) {
             throw e;
         }
     }
-    public Object list(String[] parameters) throws DataAccessException {
+    public String list(String[] parameters) throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
-            return server.list();
+            server.list();
+            return "This is the list of games!";
         } catch (DataAccessException e) {
             throw e;
         }
@@ -53,20 +56,23 @@ public class PostLogin {
     public Object join(String[] parameters) throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
-            return server.join(parameters);
+            server.join(parameters);
+            return "You have joined a game!";
         } catch (DataAccessException e) {
             throw e;
         }
     }
-    public String observe(String[] parameters) throws DataAccessException {
-        return "";
+    public String observe() throws DataAccessException {
+        return "You are now observing the game!";
     }
     public Object logout() throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
-            return server.logout();
+            server.logout();
+            Repl.state = State.PRELOGIN;
+            return "You have logout successfully!";
         } catch (DataAccessException e) {
-            throw e;
+            return e.getMessage();
         }
     }
 }

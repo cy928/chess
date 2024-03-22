@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 public class PreLogin {
     public String url;
+    ServerFacade server = new ServerFacade(url);
+
     public String help() {
                           return """
                                   register <USERNAME> <PASSWORD> <EMAIL> - to create an account
@@ -32,8 +34,8 @@ public class PreLogin {
     }
     public String register(String[] parameters) throws DataAccessException {
         try {
-            ServerFacade server = new ServerFacade(url);
             server.register(parameters);
+            Repl.state = State.POSTLOGIN;
             return "You have registered successfully!";
         } catch (DataAccessException e) {
             throw e;
@@ -41,7 +43,6 @@ public class PreLogin {
     }
     public String login(String[] parameters) throws DataAccessException {
         try {
-            ServerFacade server = new ServerFacade(url);
             server.login(parameters);
             Repl.state = State.POSTLOGIN;
             return "You have login successfully!";

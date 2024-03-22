@@ -20,7 +20,7 @@ import static java.lang.Integer.parseInt;
 
 public class ServerFacade {
     public String serverURL;
-    private String authToken;
+    static String authToken;
 
     public ServerFacade(String url) {
         serverURL = url;
@@ -28,29 +28,31 @@ public class ServerFacade {
     public void register(String[] parameters) throws DataAccessException {
         var path="/user";
         RegisterRequest request = new RegisterRequest(parameters[0], parameters[1], parameters[2]);
-        this.makeRequest("POST", path, request, UserResult.class);
+        var response = this.makeRequest("POST", path, request, UserResult.class);
+        authToken = response.authToken();
     }
 
     public void login(String[] parameters) throws DataAccessException {
         var path="/session";
         LoginRequest request = new LoginRequest(parameters[0], parameters[1]);
-        this.makeRequest("POST", path, request, UserResult.class);
+        var response = this.makeRequest("POST", path, request, UserResult.class);
+        authToken = response.authToken();
     }
 
     public void create(String[] parameters) throws DataAccessException {
         var path="/game";
         CreateGameRequest request = new CreateGameRequest(parameters[0]);
-        this.makeRequest("POST", path, request, CreateGameResult.class);
+         this.makeRequest("POST", path, request, CreateGameResult.class);
     }
 
-    public void list() throws DataAccessException {
+    public ListGameResult list() throws DataAccessException {
         var path="/game";
-        this.makeRequest("GET", path, null, ListGameResult.class);
+        return this.makeRequest("GET", path, null, ListGameResult.class);
     }
 
     public void join(String[] parameters) throws DataAccessException {
         var path="/game";
-        JoinGameRequest request = new JoinGameRequest(parameters[0], parseInt(parameters[1]));
+        JoinGameRequest request = new JoinGameRequest(parameters[1], parseInt(parameters[0]));
         this.makeRequest("PUT", path, request, Game.class);
     }
 
@@ -58,16 +60,19 @@ public class ServerFacade {
         var path="/session";
         this.makeRequest("DELETE", path, null, null);
     }
-
+    public void clear() throws DataAccessException{
+        var path = "/db";
+        this.makeRequest("DELETE", path, null, null);
+    }
     private <T> T makeRequest(String method, String path, Object request, Class<T> responseClass) throws DataAccessException {
         try {
             URI uri=new URI(Repl.url + path);
             HttpURLConnection http=(HttpURLConnection) uri.toURL().openConnection();
-            http.setRequestMethod(method);
-            writeRequestBody(request, http);
             if (authToken != null) {
                 http.addRequestProperty("authorization", authToken);
             }
+            http.setRequestMethod(method);
+            writeRequestBody(request, http);
             http.connect();
             return readResponseBody(http, responseClass);
         } catch (URISyntaxException|IOException e) {
@@ -89,7 +94,11 @@ public class ServerFacade {
             if (http.getResponseCode() == 200) {
                 InputStream respBody=http.getInputStream();
                 InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-                responseBody = new Gson().fromJson(inputStreamReader, responseClass);
+                if(responseClass != null) {
+                    responseBody=new Gson().fromJson(inputStreamReader, responseClass);
+                } else {
+                    return null;
+                }
                 return responseBody;
             } else {
                 InputStream respBody=http.getErrorStream();

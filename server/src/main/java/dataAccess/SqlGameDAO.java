@@ -49,9 +49,9 @@ public class SqlGameDAO implements GameDAO {
                         String blackUsername=rs.getString("blackUsername");
                         String whiteUsername=rs.getString("whiteUsername");
                         if (information.playerColor() == null) {
-                            return;
+                            return; // observe
                         }
-                        if (information.playerColor().equals("BLACK")) {
+                        if (information.playerColor().equalsIgnoreCase("BLACK")) {
                             if (blackUsername != null) {
                                 throw new DataAccessException("Error: already taken");
                             }

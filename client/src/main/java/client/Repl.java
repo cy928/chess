@@ -2,7 +2,6 @@ package client;
 
 import java.util.Scanner;
 
-import static ui.EscapeSequences.*;
 
 public class Repl {
     public static State state;
@@ -16,11 +15,15 @@ public class Repl {
     }
     public void run() {
         System.out.println("\uD83D\uDC36 Welcome to Chess. Sign in to start.");
-        System.out.print(preLogin.help());
-
         Scanner scanner = new Scanner(System.in);
-        var result = "";
+        String result = "";
         while (!result.equals("quit")) {
+            if (state == State.PRELOGIN){
+                System.out.print(preLogin.help());
+            }
+            else if (state == client.State.POSTLOGIN){
+                System.out.print(postLogin.help());
+            }
             printPrompt();
             String line = scanner.nextLine();
 
@@ -32,9 +35,12 @@ public class Repl {
                 }
 
             System.out.print(result);
+            System.out.println();
+
             } catch (Throwable e) {
                 var msg = e.toString();
                 System.out.print(msg);
+                result = "";
             }
         }
         System.out.println();

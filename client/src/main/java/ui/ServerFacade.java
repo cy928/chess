@@ -1,7 +1,6 @@
 package ui;
 
 import com.google.gson.Gson;
-import dataAccess.DataAccessException;
 import request.*;
 import result.CreateGameResult;
 import result.Game;
@@ -13,20 +12,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Map;
 import static java.lang.Integer.parseInt;
 
 public class ServerFacade {
     public String serverURL;
     static String authToken;
-
     public ServerFacade(String url) {
         serverURL=url;
     }
 
-    public UserResult register(String[] parameters) throws DataAccessException, ResponseException {
+    public UserResult register(String[] parameters) throws ResponseException {
         String path="/user";
         RegisterRequest request=new RegisterRequest(parameters[0], parameters[1], parameters[2]);
         UserResult resp=this.makeRequest("POST", path, request, UserResult.class);
@@ -34,7 +29,7 @@ public class ServerFacade {
         return resp;
     }
 
-    public UserResult login(String[] parameters) throws DataAccessException, ResponseException {
+    public UserResult login(String[] parameters) throws ResponseException {
         String path="/session";
         LoginRequest request=new LoginRequest(parameters[0], parameters[1]);
         UserResult resp=this.makeRequest("POST", path, request, UserResult.class);
@@ -42,29 +37,29 @@ public class ServerFacade {
         return resp;
     }
 
-    public void logout() throws DataAccessException, ResponseException {
+    public void logout() throws ResponseException {
         String path="/session";
         this.makeRequest("DELETE", path, null, null);
     }
 
-    public CreateGameResult create(String[] parameters) throws DataAccessException, ResponseException {
+    public CreateGameResult create(String[] parameters) throws ResponseException {
         String path="/game";
         CreateGameRequest request=new CreateGameRequest(parameters[0]);
         return this.makeRequest("POST", path, request, CreateGameResult.class);
     }
 
-    public ListGameResult list() throws DataAccessException, ResponseException {
+    public ListGameResult list() throws ResponseException {
         String path="/game";
         return this.makeRequest("GET", path, null, ListGameResult.class);
     }
 
-    public void join(String[] parameters) throws DataAccessException, ResponseException {
+    public void join(String[] parameters) throws ResponseException {
         String path="/game";
         JoinGameRequest request=new JoinGameRequest(parameters[1], parseInt(parameters[0]));
         this.makeRequest("PUT", path, request, Game.class);
     }
 
-    public void clear() throws DataAccessException, ResponseException {
+    public void clear() throws ResponseException {
         String path="/db";
         this.makeRequest("DELETE", path, null, null);
     }
@@ -117,7 +112,6 @@ public class ServerFacade {
         }
         return response;
     }
-
 
     private boolean isSuccessful(int status) {
         return status / 100 == 2;

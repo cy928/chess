@@ -18,12 +18,10 @@ public class BoardDrawing {
     {
         board.resetBoard();
     }
-
     private static final String boardBlackColor = SET_BG_COLOR_DARK_GREY;
     private static final String boardWhiteColor = SET_BG_COLOR_WHITE;
-    private static final String SeparateColor = SET_BG_COLOR_DARK_GREY;
     private static final String boardEdgeColor = SET_BG_COLOR_LIGHT_GREY;
-
+    private static final String SeparateColor = SET_BG_COLOR_DARK_GREY;
     public static void main(String[] args) {
         var out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         out.print(ERASE_SCREEN);
@@ -42,7 +40,7 @@ public class BoardDrawing {
                     out.print(SET_TEXT_COLOR_BLACK);
                     printLetterWithSpaces(out, String.valueOf(i));
                 }
-                for (int j=0; j <= 7; j++) {
+                for (int j=7; j >= 0; j--) {
                     printBoard(board, out, i, j);
                 }
                 if (i > 0 && i < 9) {
@@ -60,7 +58,7 @@ public class BoardDrawing {
                     out.print(SET_TEXT_COLOR_BLACK);
                     printLetterWithSpaces(out, String.valueOf(i));
                 }
-                for (int j = 7; j >= 0; j--){
+                for (int j = 0; j <= 7; j++){
                     printBoard(board, out, i, j);
                 }
                 if(i>0 && i<9) {
@@ -81,9 +79,9 @@ public class BoardDrawing {
         if (i > 0 && i < 9) {
             ChessPiece currPiece=board.getPiece(new ChessPosition(i, j + 1));
             if ((i + j) % 2 == 0) {
-                out.print(boardBlackColor);
-            } else {
                 out.print(boardWhiteColor);
+            } else {
+                out.print(boardBlackColor);
             }
             if (!(currPiece == null)) {
                 printPiece(out, currPiece.getPieceType(), currPiece.getTeamColor());

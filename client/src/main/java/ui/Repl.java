@@ -25,7 +25,6 @@ public class Repl {
             else if (state == State.POSTLOGIN){
                 System.out.print(postLogin.help());
             }
-
             System.out.print("\n>>>");
             String line = scanner.nextLine();
 

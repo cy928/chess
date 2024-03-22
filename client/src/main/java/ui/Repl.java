@@ -1,52 +1,51 @@
-package client;
+package ui;
 
 import java.util.Scanner;
 
 
 public class Repl {
+    public static String serverURL;
     public static State state;
-    public static String url;
     private final PreLogin preLogin = new PreLogin();
     private final PostLogin postLogin = new PostLogin();
 
-    public Repl(String serverURL) {
+    public Repl(String url) {
+        Repl.serverURL= url;
         state = State.PRELOGIN;
-        url = serverURL;
     }
     public void run() {
         System.out.println("\uD83D\uDC36 Welcome to Chess. Sign in to start.");
         Scanner scanner = new Scanner(System.in);
-        String result = "";
-        while (!result.equals("quit")) {
+        String resultString = "";
+
+        while (!resultString.equals("quit")) {
             if (state == State.PRELOGIN){
                 System.out.print(preLogin.help());
             }
-            else if (state == client.State.POSTLOGIN){
+            else if (state == State.POSTLOGIN){
                 System.out.print(postLogin.help());
             }
-            printPrompt();
+
+            System.out.print("\n>>>");
             String line = scanner.nextLine();
 
             try {
                 if (state == State.PRELOGIN) {
-                    result = preLogin.eval(line, url);
+                    resultString = preLogin.eval(line);
                 } else if (state == State.POSTLOGIN) {
-                    result = postLogin.eval(line, url);
+                    resultString = postLogin.eval(line);
                 }
 
-            System.out.print(result);
+            System.out.print(resultString);
+            System.out.println();
             System.out.println();
 
-            } catch (Throwable e) {
-                var msg = e.toString();
-                System.out.print(msg);
-                result = "";
+            } catch (Throwable ex) {
+                String errorMessage=ex.toString();
+                System.out.print(errorMessage);
             }
         }
         System.out.println();
     }
 
-    private void printPrompt() {
-        System.out.print("\n>>>");
-    }
 }

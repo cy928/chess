@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import static ui.EscapeSequences.*;
 
 
-public class Board {
+public class BoardDrawing {
 
     public static ChessBoard board = new ChessBoard();
     static
@@ -151,7 +151,7 @@ public class Board {
 
 
     private static void printEmptyRows() {
-        System.out.print(Board.SeparateColor);
+        System.out.print(BoardDrawing.SeparateColor);
         for (int i = 0; i <= 9; i++) {
             System.out.print(EMPTY);
         }

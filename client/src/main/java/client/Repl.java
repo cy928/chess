@@ -26,9 +26,9 @@ public class Repl {
 
             try {
                 if (state == State.PRELOGIN) {
-                    result = preLogin.eval(line, url).toString();
+                    result = preLogin.eval(line, url);
                 } else if (state == State.POSTLOGIN) {
-                    result = postLogin.eval(line, url).toString();
+                    result = postLogin.eval(line, url);
                 }
 
             System.out.print(result);

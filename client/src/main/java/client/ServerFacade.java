@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
@@ -67,6 +68,7 @@ public class ServerFacade {
             if (authToken != null) {
                 http.addRequestProperty("authorization", authToken);
             }
+            http.connect();
             return readResponseBody(http, responseClass);
         } catch (URISyntaxException|IOException e) {
             throw new DataAccessException(e.getMessage());
@@ -92,8 +94,8 @@ public class ServerFacade {
             } else {
                 InputStream respBody=http.getErrorStream();
                 InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-                var response = new Gson().fromJson(inputStreamReader, DataAccessException.class);
-                throw response;
+                var response = new Gson().fromJson(inputStreamReader, Map.class);
+                throw new DataAccessException((String)response.get("massage"));
             }
         } catch (IOException e) {
           throw new DataAccessException(e.getMessage());

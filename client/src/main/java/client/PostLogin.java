@@ -17,14 +17,14 @@ public class PostLogin {
                   help - with possible commands
                   """;
     }
-    public Object eval(String input, String url) {
+    public String eval(String input, String url) {
         try {
             var tokens = input.toLowerCase().split(" ");
             var cmd = (tokens.length > 0) ? tokens[0] : "help";
             var parameters = Arrays.copyOfRange(tokens, 1, tokens.length);
             return switch (cmd) {
                 case "create" -> create(parameters);
-                case "list" -> list(parameters);
+                case "list" -> list();
                 case "join" -> join(parameters);
                 case "observe" -> observe();
                 case "logout" -> logout();
@@ -35,7 +35,7 @@ public class PostLogin {
             return e.getMessage();
         }
     }
-    public Object create(String[] parameters) throws DataAccessException {
+    public String create(String[] parameters) throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
             server.create(parameters);
@@ -44,7 +44,7 @@ public class PostLogin {
             throw e;
         }
     }
-    public String list(String[] parameters) throws DataAccessException {
+    public String list() throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
             server.list();
@@ -53,7 +53,7 @@ public class PostLogin {
             throw e;
         }
     }
-    public Object join(String[] parameters) throws DataAccessException {
+    public String join(String[] parameters) throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
             server.join(parameters);
@@ -65,7 +65,7 @@ public class PostLogin {
     public String observe() throws DataAccessException {
         return "You are now observing the game!";
     }
-    public Object logout() throws DataAccessException {
+    public String logout() throws DataAccessException {
         try {
             ServerFacade server = new ServerFacade(url);
             server.logout();

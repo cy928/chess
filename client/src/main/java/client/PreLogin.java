@@ -14,7 +14,7 @@ public class PreLogin {
                                   help - with possible commands
                                   """;
     }
-    public Object eval(String input, String url) {
+    public String eval(String input, String url) {
         url = url;
         try {
             var tokens = input.toLowerCase().split(" ");
@@ -43,6 +43,7 @@ public class PreLogin {
         try {
             ServerFacade server = new ServerFacade(url);
             server.login(parameters);
+            Repl.state = State.POSTLOGIN;
             return "You have login successfully!";
         } catch (DataAccessException e) {
             throw e;

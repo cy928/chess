@@ -1,6 +1,7 @@
 package ui;
 
 import com.google.gson.Gson;
+import dataAccess.DataAccessException;
 import request.*;
 import result.CreateGameResult;
 import result.Game;
@@ -12,6 +13,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URISyntaxException;
+
 import static java.lang.Integer.parseInt;
 
 public class ServerFacade {
@@ -21,7 +24,7 @@ public class ServerFacade {
         serverURL=url;
     }
 
-    public UserResult register(String[] parameters) throws ResponseException {
+    public UserResult register(String[] parameters) throws DataAccessException, ResponseException {
         String path="/user";
         RegisterRequest request=new RegisterRequest(parameters[0], parameters[1], parameters[2]);
         UserResult resp=this.makeRequest("POST", path, request, UserResult.class);
@@ -29,7 +32,7 @@ public class ServerFacade {
         return resp;
     }
 
-    public UserResult login(String[] parameters) throws ResponseException {
+    public UserResult login(String[] parameters) throws DataAccessException, ResponseException {
         String path="/session";
         LoginRequest request=new LoginRequest(parameters[0], parameters[1]);
         UserResult resp=this.makeRequest("POST", path, request, UserResult.class);
@@ -37,54 +40,53 @@ public class ServerFacade {
         return resp;
     }
 
-    public void logout() throws ResponseException {
+    public void logout() throws DataAccessException, ResponseException {
         String path="/session";
         this.makeRequest("DELETE", path, null, null);
     }
 
-    public CreateGameResult create(String[] parameters) throws ResponseException {
+    public CreateGameResult create(String[] parameters) throws DataAccessException, ResponseException {
         String path="/game";
         CreateGameRequest request=new CreateGameRequest(parameters[0]);
         return this.makeRequest("POST", path, request, CreateGameResult.class);
     }
 
-    public ListGameResult list() throws ResponseException {
+    public ListGameResult list() throws DataAccessException, ResponseException {
         String path="/game";
         return this.makeRequest("GET", path, null, ListGameResult.class);
     }
 
-    public void join(String[] parameters) throws ResponseException {
+    public void join(String[] parameters) throws DataAccessException, ResponseException {
         String path="/game";
         JoinGameRequest request=new JoinGameRequest(parameters[1], parseInt(parameters[0]));
         this.makeRequest("PUT", path, request, Game.class);
     }
 
-    public void clear() throws ResponseException {
+    public void clear() throws DataAccessException, ResponseException {
         String path="/db";
         this.makeRequest("DELETE", path, null, null);
     }
-
-    private <T> T makeRequest(String method, String path, Object request, Class<T> responseClass) throws ResponseException {
+    private <T> T makeRequest(String method, String path, Object request, Class<T> responseClass) throws ResponseException, DataAccessException {
         try {
-            URI uri=new URI(Repl.serverURL + path);
+            URI uri=new URI(serverURL + path);
+            System.out.println(uri);
             HttpURLConnection http=(HttpURLConnection) uri.toURL().openConnection();
-            if (authToken != null) {
-                    http.addRequestProperty("authorization", authToken);
-                    }
             http.setRequestMethod(method);
-            http.setDoOutput(true);
-
+            if (authToken != null) {
+                http.addRequestProperty("authorization", authToken);
+            }
             writeBody(request, http);
             http.connect();
             throwIfNotSuccessful(http);
             return readBody(http, responseClass);
-        } catch (Exception ex) {
-            throw new ResponseException(500, ex.getMessage());
+        } catch(IOException | URISyntaxException ex) {
+            throw new DataAccessException(ex.getMessage());
         }
     }
 
     private static void writeBody(Object request, HttpURLConnection http) throws IOException {
         if (request != null) {
+            http.setDoOutput(true);
             http.addRequestProperty("Content-Type", "application/json");
             String reqData = new Gson().toJson(request);
             try (OutputStream reqBody = http.getOutputStream()) {

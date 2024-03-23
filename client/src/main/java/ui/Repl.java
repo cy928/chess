@@ -6,12 +6,14 @@ import java.util.Scanner;
 public class Repl {
     public static String serverURL;
     public static State state;
-    private final PreLogin preLogin = new PreLogin();
-    private final PostLogin postLogin = new PostLogin();
+    private final PreLogin preLogin;
+    private final PostLogin postLogin;
 
     public Repl(String url) {
         Repl.serverURL= url;
         state = State.PRELOGIN;
+        preLogin = new PreLogin();
+        postLogin = new PostLogin();
     }
     public void run() {
         System.out.println("\uD83D\uDC36 Welcome to Chess. Sign in to start.");
@@ -38,6 +40,7 @@ public class Repl {
             System.out.print(resultString);
             System.out.println();
             System.out.println();
+
 
             } catch (Throwable ex) {
                 String errorMessage=ex.toString();

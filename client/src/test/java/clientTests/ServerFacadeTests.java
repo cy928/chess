@@ -27,7 +27,7 @@ public class ServerFacadeTests {
     @AfterAll
     static void stopServer() throws DataAccessException, ResponseException {
         server.stop();
-        serverFacade.clear();
+
     }
     @Test
     public void sampleTest() {

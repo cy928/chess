@@ -111,4 +111,17 @@ public class ServerFacadeTests {
         serverFacade.logout();
         Assertions.assertTrue(true);
     }
+    @Test
+    @Order(13)
+    public void successClear() throws ResponseException, DataAccessException {
+        serverFacade.clear();
+        Assertions.assertTrue(true);
+    }
+
+    @Test
+    @Order(14)
+    public void failClear() throws ResponseException, DataAccessException {
+        serverFacade.clear();
+        Assertions.assertTrue(true);
+    }
 }

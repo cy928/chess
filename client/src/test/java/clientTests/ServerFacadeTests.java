@@ -26,8 +26,8 @@ public class ServerFacadeTests {
     }
     @AfterAll
     static void stopServer() throws DataAccessException, ResponseException {
-        serverFacade.clear();
         server.stop();
+        serverFacade.clear();
     }
     @Test
     public void sampleTest() {
@@ -97,17 +97,15 @@ public class ServerFacadeTests {
         String[] params={Integer.toString(gameID),"WHITE"};
         Assertions.assertThrows(ResponseException.class, () -> {serverFacade.join(params);}, "This place is already taken");
     }
-
     @Test
-    @Order(13)
+    @Order(11)
     public void successLogout() throws DataAccessException, ResponseException {
         serverFacade.login(loginParameters);
         serverFacade.logout();
         Assertions.assertTrue(true);
     }
-
     @Test
-    @Order(14)
+    @Order(12)
     public void failLogout() throws DataAccessException, ResponseException {
         serverFacade.login(loginParameters);
         serverFacade.logout();

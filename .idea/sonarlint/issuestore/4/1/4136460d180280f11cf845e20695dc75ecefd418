@@ -1,0 +1,26 @@
+
+‘
+java:S1104"UMake serverURL a static final constant or non-public and provide accessors if needed.(‰´àĞJ$55775175-c73b-4bc0-92e9-ea4469e3919f
+’
+java:S1104"QMake state a static final constant or non-public and provide accessors if needed.(ïë•’ıÿÿÿÿJ$8e7e82c2-f6d6-476a-931a-f3c9c0f09c4d
+k
+java:S1444"/Make this "public static serverURL" field final(‰´àĞJ$38d6c630-7961-4376-83e1-cf093f1b38dc
+l
+java:S1444"+Make this "public static state" field final(ïë•’ıÿÿÿÿJ$02c5f6d6-44b6-4347-8d80-159e623cd5d4
+b
+java:S3010"&Remove this assignment of "serverURL".(ï©ÌÄJ$8784d483-21b3-4c9c-a58a-afdebac6e26d
+^
+java:S3010""Remove this assignment of "state".(“¢™ÓJ$0cf0c26e-56f6-4527-8759-9d6a3e15371d
+f	java:S106"+Replace this use of System.out by a logger.(êûàœJ$d755cd63-a9cd-4874-a17d-3b703a37bb57
+k	java:S106"+Replace this use of System.out by a logger.(™ÀÌ¹øÿÿÿÿJ$2ff4cf00-3d25-4156-bfd8-94116f2606ac
+k	java:S106"+Replace this use of System.out by a logger.(†äâÿÿÿÿÿÿJ$34485f5a-c037-42c8-8174-7f8acebb1367
+k	java:S106"+Replace this use of System.out by a logger.(ÔÊùÆûÿÿÿÿJ$a06f73c1-e45c-4a16-afed-5749e3d06ee4
+f
+java:S1181-"%Catch Exception instead of Throwable.(À˜§üÿÿÿÿJ$0911e944-0ce7-4b3c-86f8-34d5199f611c
+e	java:S106("+Replace this use of System.out by a logger.(õ¿‡	J$464f74b9-fa2b-4c19-b3e3-f7bc7c58b799
+k	java:S106)"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$d6648cc1-a8f8-4f2c-888a-984e073ce3e6
+k	java:S106*"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$0941df30-c2c3-4664-b1a8-de220f1c255e
+f	java:S106/"+Replace this use of System.out by a logger.(şà€ÑJ$27524330-0184-4709-bd9b-b463949e0c04
+k	java:S1062"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$a68131cb-3af5-4cb3-8db1-7818cf347617
+m	java:S1065"+Replace this use of System.out by a logger.(£øÂ¢8¯ªƒë1J$c149abae-e953-403a-b7eb-2a23ece3f15e
+r	java:S1066"+Replace this use of System.out by a logger.(ÔÊùÆûÿÿÿÿ8€«ƒë1J$93f401fc-bd8c-4888-9384-8d6fb7cd6131

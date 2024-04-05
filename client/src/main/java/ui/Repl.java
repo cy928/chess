@@ -49,5 +49,9 @@ public class Repl {
         }
         System.out.println();
     }
+    public void notify(String notification) {
+        System.out.println(notification);
+        System.out.print("\n>>>");
+    }
 
 }

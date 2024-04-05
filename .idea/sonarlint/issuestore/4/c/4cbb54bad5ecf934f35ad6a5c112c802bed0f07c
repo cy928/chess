@@ -1,0 +1,28 @@
+
+a
+java:S11921"FDefine a constant instead of duplicating this literal "/game" 3 times.(åÄÒÛşÿÿÿÿ
+k
+java:S1104"UMake serverURL a static final constant or non-public and provide accessors if needed.(ô½ë
+X
+java:S2259"BA "NullPointerException" could be thrown; "resp" is nullable here.(¨±îã
+X
+java:S2259'"BA "NullPointerException" could be thrown; "resp" is nullable here.(¨±îã
+\
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(¹äùÿÿÿÿ
+L
+java:S2696"6Make the enclosing method "static" or remove this set.(¨±îã
+\
+java:S1075$"ARefactor your code to get this URI from a customizable parameter.(ìÉêÙûÿÿÿÿ
+L
+java:S2696'"6Make the enclosing method "static" or remove this set.(¨±îã
+\
+java:S1075,"ARefactor your code to get this URI from a customizable parameter.(ìÉêÙûÿÿÿÿ
+\
+java:S10751"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿ
+\
+java:S10757"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿ
+\
+java:S1075<"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿ
+W
+java:S1075B"ARefactor your code to get this URI from a customizable parameter.(ªÈ€—
+?	java:S106H"+Replace this use of System.out by a logger.(°Ÿ÷a

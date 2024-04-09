@@ -1,5 +1,7 @@
 package websocket;
 
+import chess.ChessGame;
+import chess.ChessMove;
 import com.google.gson.Gson;
 import dataAccess.DataAccessException;
 import java.io.IOException;
@@ -7,13 +9,16 @@ import javax.websocket.*;
 import java.net.URISyntaxException;
 import java.net.URI;
 
+import request.AuthToken;
 import ui.ResponseException;
+import userGameCommand.*;
 import webSocketMessages.serverMessages.ServerMessage;
 import webSocketMessages.userCommands.UserGameCommand;
 
 public class WebSocketFacade extends Endpoint {
     NotificationHandler notificationHandler;
     Session session;
+    static String authToken;
     public WebSocketFacade(String url, NotificationHandler notificationHandler) throws DataAccessException {
         try {
             url = url.replace("http", "ws");
@@ -34,12 +39,49 @@ public class WebSocketFacade extends Endpoint {
         }
     }
 
-    public void leave(Integer gameID) throws DataAccessException, ResponseException {
+
+    public void send(String msg) throws Exception {
+        this.session.getBasicRemote().sendText(msg);
+    }
+
+    public void leave(Integer gameID) throws DataAccessException {
         try {
-            UserGameCommand action = new UserGameCommand(UserGameCommand.CommandType.LEAVE, gameID);
+            Leave action = new Leave(authToken, gameID);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
         } catch (IOException ex) {
-            throw new ResponseException(500, ex.getMessage());
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+    public void resign(Integer gameID) throws DataAccessException {
+        try {
+            Resign action = new Resign(authToken, gameID);
+            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+        } catch (IOException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+    public void makeMove(Integer gameID, ChessMove move) throws DataAccessException {
+        try {
+            MakeMove action = new MakeMove(authToken, gameID, move);
+            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+        } catch (IOException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+    public void joinObserver(Integer gameID) throws DataAccessException {
+        try {
+            JoinObserver action = new JoinObserver(authToken, gameID);
+            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+        } catch (IOException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+    public void joinPlayer(Integer gameID, ChessGame.TeamColor color) throws DataAccessException {
+        try {
+            JoinPlayer action = new JoinPlayer(authToken, gameID, color);
+            this.session.getBasicRemote().sendText(new Gson().toJson(action));
+        } catch (IOException ex) {
+            throw new DataAccessException(ex.getMessage());
         }
     }
 

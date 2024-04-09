@@ -47,7 +47,7 @@ public class GamePlayUI {
     }
     public String leave() throws DataAccessException, ResponseException {
         try {
-            ListGameResult response = server.leave(GameId);
+            server.leave(gameId);
             Repl.state = State.POSTLOGIN;
             return "You have left successfully!";
         }
@@ -58,21 +58,22 @@ public class GamePlayUI {
     }
     public String makeMove(String[] parameters) throws DataAccessException, ResponseException {
         try {
-            String[] startPosition = parameters[0].toLowerCase().split("");
-            String[] endPosition = parameters[1].toLowerCase().split("");
+            String[] start=parameters[0].toLowerCase().split("");
+            ChessPosition startPosition=new ChessPosition(parseInt(start[0]), parseInt(start[1]));
+            String[] end=parameters[1].toLowerCase().split("");
+            ChessPosition endPosition=new ChessPosition(parseInt(end[0]), parseInt(end[1]));
+            ChessMove move=new ChessMove(startPosition, endPosition, null);
             try {
-                ChessMove move = new ChessMove(new ChessPosition(parseInt(startPosition[0]),parseInt(startPosition[1])),(new ChessPosition(parseInt(endPosition[0]),parseInt(endPosition[1]))),null);
                 game.makeMove(move);
             } catch (InvalidMoveException e) {
                 return e.getMessage();
             }
-            server.makeMove(gameId, startPosition, endPosition);
+            server.makeMove(gameId, move);
             return redrawChessBoard();
         }
         catch(DataAccessException | ResponseException ex){
             throw ex;
         }
-        return "You have made a move on the board!";
     }
     public String resign() throws DataAccessException, ResponseException {
         while (true) {

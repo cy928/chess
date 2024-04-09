@@ -1,21 +1,23 @@
 package ui;
 
+import webSocketMessages.serverMessages.ServerMessage;
+import websocket.NotificationHandler;
+
 import java.util.Scanner;
 
 
-public class Repl {
-    public static String serverURL;
-    public static State state;
-    private final PreLogin preLogin;
-    private final PostLogin postLogin;
-    private final GamePlayUI gamePlayUI;
+public class Repl implements NotificationHandler {
+    static String serverURL;
+    static State state;
+    PreLogin preLogin;
+    PostLogin postLogin;
+    static GamePlayUI gamePlayUI = new GamePlayUI();
 
     public Repl(String url) {
-        Repl.serverURL= url;
+        serverURL= url;
         state = State.PRELOGIN;
         preLogin = new PreLogin();
-        postLogin = new PostLogin();
-        gamePlayUI = new GamePlayUI();
+        postLogin = new PostLogin(this);
     }
     public void run() {
         System.out.println("\uD83D\uDC36 Welcome to Chess. Sign in to start.");
@@ -52,9 +54,10 @@ public class Repl {
         }
         System.out.println();
     }
-    public void notify(String notification) {
+
+    @Override
+    public void notify(ServerMessage notification) {
         System.out.println(notification);
         System.out.print("\n>>>");
     }
-
 }

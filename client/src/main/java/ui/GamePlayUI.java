@@ -5,7 +5,6 @@ import chess.ChessMove;
 import chess.ChessPosition;
 import chess.InvalidMoveException;
 import dataAccess.DataAccessException;
-import result.ListGameResult;
 
 
 import java.util.Arrays;
@@ -18,7 +17,7 @@ public class GamePlayUI {
     websocket.WebSocketFacade server;
     ChessGame game = new ChessGame();
     Integer gameId;
-    ChessGame.TeamColor teamColor;
+    ChessGame.TeamColor color;
     BoardDrawing draw = new BoardDrawing();
     public String eval(String input) {
         try {
@@ -38,7 +37,7 @@ public class GamePlayUI {
         }
     }
     public String redrawChessBoard() throws DataAccessException, ResponseException {
-        if (teamColor == ChessGame.TeamColor.BLACK) {
+        if (color == ChessGame.TeamColor.BLACK) {
             BoardDrawing.printWholeBoard(BoardDrawing.board, ChessGame.TeamColor.BLACK);
         } else {
             BoardDrawing.printWholeBoard(BoardDrawing.board, ChessGame.TeamColor.WHITE);

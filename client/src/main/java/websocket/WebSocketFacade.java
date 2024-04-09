@@ -19,10 +19,11 @@ public class WebSocketFacade extends Endpoint {
     NotificationHandler notificationHandler;
     Session session;
     static String authToken;
-    public WebSocketFacade(String url, NotificationHandler notificationHandler) throws DataAccessException {
+    public WebSocketFacade(String url, NotificationHandler notificationHandler, String authToken) throws DataAccessException {
         try {
             url = url.replace("http", "ws");
             URI webSocketURI = new URI(url + "/connect");
+            this.authToken = authToken;
             this.notificationHandler = notificationHandler;
             WebSocketContainer webSocketContainer = ContainerProvider.getWebSocketContainer();
             this.session = webSocketContainer.connectToServer(this, webSocketURI);

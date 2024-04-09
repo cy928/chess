@@ -1,28 +1,28 @@
 
-a
-java:S11921"FDefine a constant instead of duplicating this literal "/game" 3 times.(åÄÒÛşÿÿÿÿ
-k
-java:S1104"UMake serverURL a static final constant or non-public and provide accessors if needed.(ô½ë
-X
-java:S2259"BA "NullPointerException" could be thrown; "resp" is nullable here.(¨±îã
-X
-java:S2259'"BA "NullPointerException" could be thrown; "resp" is nullable here.(¨±îã
-\
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(¹äùÿÿÿÿ
-L
-java:S2696"6Make the enclosing method "static" or remove this set.(¨±îã
-\
-java:S1075$"ARefactor your code to get this URI from a customizable parameter.(ìÉêÙûÿÿÿÿ
-L
-java:S2696'"6Make the enclosing method "static" or remove this set.(¨±îã
-\
-java:S1075,"ARefactor your code to get this URI from a customizable parameter.(ìÉêÙûÿÿÿÿ
-\
-java:S10751"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿ
-\
-java:S10757"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿ
-\
-java:S1075<"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿ
-W
-java:S1075B"ARefactor your code to get this URI from a customizable parameter.(ªÈ€—
-?	java:S106H"+Replace this use of System.out by a logger.(°Ÿ÷a
+‡
+java:S11921"FDefine a constant instead of duplicating this literal "/game" 3 times.(åÄÒÛşÿÿÿÿJ$98d5acb5-730f-43b0-a1af-31584c5dc53e
+‘
+java:S1104"UMake serverURL a static final constant or non-public and provide accessors if needed.(ô½ëJ$f1606617-68d7-4a0c-b09f-21c8bd5311fc
+~
+java:S2259"BA "NullPointerException" could be thrown; "resp" is nullable here.(¨±îãJ$027109d7-e582-43f6-8f56-7e7f3e3daf1a
+~
+java:S2259'"BA "NullPointerException" could be thrown; "resp" is nullable here.(¨±îãJ$0bfed50e-4565-492d-bebd-f9dccf583988
+‚
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(¹äùÿÿÿÿJ$5cc7e325-ed2c-4ff5-879e-9a6ad3828f36
+r
+java:S2696"6Make the enclosing method "static" or remove this set.(¨±îãJ$9d002798-b741-408a-abb0-2bf12e6db2d0
+‚
+java:S1075$"ARefactor your code to get this URI from a customizable parameter.(ìÉêÙûÿÿÿÿJ$68b6bc3e-306c-46c5-bccd-4367f4523842
+r
+java:S2696'"6Make the enclosing method "static" or remove this set.(¨±îãJ$22adee2e-57ef-4f26-a2cd-778c53591d42
+‚
+java:S1075,"ARefactor your code to get this URI from a customizable parameter.(ìÉêÙûÿÿÿÿJ$fe1671b7-8386-43e3-b138-f4b7962fb856
+‚
+java:S10751"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿJ$2e556236-2048-470e-ba59-4c3648671c52
+‚
+java:S10757"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿJ$0d90b286-105f-45bb-a884-a1d3486ffd8b
+‚
+java:S1075<"ARefactor your code to get this URI from a customizable parameter.(åÄÒÛşÿÿÿÿJ$0c4d08c7-149c-4a40-a8b1-b39f45bf705b
+}
+java:S1075B"ARefactor your code to get this URI from a customizable parameter.(ªÈ€—J$77cb83ec-6993-4af8-aa03-3d08757ef748
+e	java:S106H"+Replace this use of System.out by a logger.(°Ÿ÷aJ$ced043c8-1c98-4d80-b935-f10f7a78ceee

@@ -46,7 +46,7 @@ public class PostLogin {
         }
         return output.toString();
     }
-    public String observe(String[] parameters) throws DataAccessException {
+    public String observe(String[] parameters) {
         BoardDrawing.main(parameters);
         return "You are now observing the game!";
     }

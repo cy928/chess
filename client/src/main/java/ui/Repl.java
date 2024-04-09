@@ -8,12 +8,14 @@ public class Repl {
     public static State state;
     private final PreLogin preLogin;
     private final PostLogin postLogin;
+    private final GamePlayUI gamePlayUI;
 
     public Repl(String url) {
         Repl.serverURL= url;
         state = State.PRELOGIN;
         preLogin = new PreLogin();
         postLogin = new PostLogin();
+        gamePlayUI = new GamePlayUI();
     }
     public void run() {
         System.out.println("\uD83D\uDC36 Welcome to Chess. Sign in to start.");
@@ -23,9 +25,10 @@ public class Repl {
         while (!resultString.equals("quit")) {
             if (state == State.PRELOGIN){
                 System.out.print(preLogin.help());
-            }
-            else if (state == State.POSTLOGIN){
+            } else if (state == State.POSTLOGIN){
                 System.out.print(postLogin.help());
+            } else if (state == State.GAMEPLAYUI){
+                System.out.print(gamePlayUI.help());
             }
             System.out.print("\n>>>");
             String line = scanner.nextLine();

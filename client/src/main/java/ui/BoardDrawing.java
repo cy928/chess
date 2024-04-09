@@ -25,9 +25,9 @@ public class BoardDrawing {
     public static void main(String[] args) {
         var out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         out.print(ERASE_SCREEN);
-        printWholeBoard(board, ChessGame.TeamColor.WHITE);
-        printEmptyRows();
-        printWholeBoard(board, ChessGame.TeamColor.BLACK);
+//        printWholeBoard(board, ChessGame.TeamColor.WHITE);
+//        printEmptyRows();
+//        printWholeBoard(board, ChessGame.TeamColor.BLACK);
     }
 
     public static void printWholeBoard(ChessBoard board, ChessGame.TeamColor teamColor) {

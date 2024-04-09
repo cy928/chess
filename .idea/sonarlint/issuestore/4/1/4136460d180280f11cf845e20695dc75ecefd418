@@ -1,26 +1,27 @@
 
-‘
-java:S1104"UMake serverURL a static final constant or non-public and provide accessors if needed.(‰´àĞJ$55775175-c73b-4bc0-92e9-ea4469e3919f
-’
-java:S1104"QMake state a static final constant or non-public and provide accessors if needed.(ïë•’ıÿÿÿÿJ$8e7e82c2-f6d6-476a-931a-f3c9c0f09c4d
-k
-java:S1444"/Make this "public static serverURL" field final(‰´àĞJ$38d6c630-7961-4376-83e1-cf093f1b38dc
-l
-java:S1444"+Make this "public static state" field final(ïë•’ıÿÿÿÿJ$02c5f6d6-44b6-4347-8d80-159e623cd5d4
-b
-java:S3010"&Remove this assignment of "serverURL".(ï©ÌÄJ$8784d483-21b3-4c9c-a58a-afdebac6e26d
-^
-java:S3010""Remove this assignment of "state".(“¢™ÓJ$0cf0c26e-56f6-4527-8759-9d6a3e15371d
-f	java:S106"+Replace this use of System.out by a logger.(êûàœJ$d755cd63-a9cd-4874-a17d-3b703a37bb57
-k	java:S106"+Replace this use of System.out by a logger.(™ÀÌ¹øÿÿÿÿJ$2ff4cf00-3d25-4156-bfd8-94116f2606ac
-k	java:S106"+Replace this use of System.out by a logger.(†äâÿÿÿÿÿÿJ$34485f5a-c037-42c8-8174-7f8acebb1367
-k	java:S106"+Replace this use of System.out by a logger.(ÔÊùÆûÿÿÿÿJ$a06f73c1-e45c-4a16-afed-5749e3d06ee4
-f
-java:S1181-"%Catch Exception instead of Throwable.(À˜§üÿÿÿÿJ$0911e944-0ce7-4b3c-86f8-34d5199f611c
-e	java:S106("+Replace this use of System.out by a logger.(õ¿‡	J$464f74b9-fa2b-4c19-b3e3-f7bc7c58b799
-k	java:S106)"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$d6648cc1-a8f8-4f2c-888a-984e073ce3e6
-k	java:S106*"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$0941df30-c2c3-4664-b1a8-de220f1c255e
-f	java:S106/"+Replace this use of System.out by a logger.(şà€ÑJ$27524330-0184-4709-bd9b-b463949e0c04
-k	java:S1062"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$a68131cb-3af5-4cb3-8db1-7818cf347617
-m	java:S1065"+Replace this use of System.out by a logger.(£øÂ¢8¯ªƒë1J$c149abae-e953-403a-b7eb-2a23ece3f15e
-r	java:S1066"+Replace this use of System.out by a logger.(ÔÊùÆûÿÿÿÿ8€«ƒë1J$93f401fc-bd8c-4888-9384-8d6fb7cd6131
+˜
+java:S1104"UMake serverURL a static final constant or non-public and provide accessors if needed.(‰´àĞ8Ÿ¡é„ë1J$365b05f9-e225-4dc3-a5e6-cbd058edb2ba
+™
+java:S1104"QMake state a static final constant or non-public and provide accessors if needed.(ïë•’ıÿÿÿÿ8 ¡é„ë1J$186456b1-ca45-42aa-9251-8760183c01a8
+r
+java:S1444"/Make this "public static serverURL" field final(‰´àĞ8¡¡é„ë1J$ec78fb93-c8fb-468c-963c-611ed68c3f4a
+s
+java:S1444"+Make this "public static state" field final(ïë•’ıÿÿÿÿ8¡¡é„ë1J$14055614-9912-4e98-9236-d75a52aebc49
+i
+java:S3010"&Remove this assignment of "serverURL".(ï©ÌÄ8³¡é„ë1J$7dada513-5be3-4edf-aab6-2b3a0128971c
+e
+java:S3010""Remove this assignment of "state".(“¢™Ó8³¡é„ë1J$761c2440-dd95-44b1-8af6-ad4584aa5d97
+m	java:S106"+Replace this use of System.out by a logger.(êûàœ8»¡é„ë1J$b2aaaacf-d6fd-4c3d-b7dd-3e3baef781dc
+r	java:S106"+Replace this use of System.out by a logger.(™ÀÌ¹øÿÿÿÿ8¿¡é„ë1J$477f1f27-db08-40ad-bef0-6d9a72c6bf4f
+r	java:S106"+Replace this use of System.out by a logger.(†äâÿÿÿÿÿÿ8À¡é„ë1J$44336373-0a1d-438c-825e-11e495929687
+m	java:S106"+Replace this use of System.out by a logger.(Ó–õÁ8À¡é„ë1J$e31acd0a-073c-4c52-aa1d-6e24ebb20759
+r	java:S106!"+Replace this use of System.out by a logger.(ÔÊùÆûÿÿÿÿ8Á¡é„ë1J$4b4443e9-04b2-4376-80e0-17f8c09745f1
+m
+java:S11810"%Catch Exception instead of Throwable.(À˜§üÿÿÿÿ8Â¡é„ë1J$4fae321d-507a-4395-bce7-41a071e7c716
+l	java:S106+"+Replace this use of System.out by a logger.(õ¿‡	8Ä¡é„ë1J$e2461d90-5cdf-47be-a799-4b7abfa92848
+r	java:S106,"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8Å¡é„ë1J$4abc74c9-2010-49dc-aa4e-722ac493d8be
+r	java:S106-"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8Å¡é„ë1J$73e6f67d-624b-44a4-9632-c7b8c3a3de31
+m	java:S1062"+Replace this use of System.out by a logger.(şà€Ñ8Æ¡é„ë1J$6f8b0c43-5270-4857-b872-acbcaf20371a
+r	java:S1065"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿ8Æ¡é„ë1J$ef9d135c-6aa0-4889-936c-c34564918102
+m	java:S1068"+Replace this use of System.out by a logger.(£øÂ¢8Ç¡é„ë1J$3fab32c1-d216-4679-bbaa-aa54a4345ee5
+r	java:S1069"+Replace this use of System.out by a logger.(ÔÊùÆûÿÿÿÿ8Ç¡é„ë1J$5bc7bff6-a9d2-4615-aee4-8145a74d8f45

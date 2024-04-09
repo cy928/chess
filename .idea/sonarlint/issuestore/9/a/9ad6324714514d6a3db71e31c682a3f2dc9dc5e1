@@ -1,0 +1,34 @@
+
+}
+java:S1141?"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8¹à×€ì1J$565fea23-82aa-49fc-8758-e4d958d6be71
+
+java:S4973R"<Strings and Boxed types should be compared using "equals()".(”ì¥„8¼à×€ì1J$b96d5cb9-84b1-4660-822f-138813238b10
+
+java:S4973T"<Strings and Boxed types should be compared using "equals()".(‡ã›ô8¼à×€ì1J$98d84249-43c0-4291-837b-1a22fa6413d2
+t
+java:S2440",Remove this instantiation of "BoardDrawing".(äšö‘úÿÿÿÿ8Ðà×€ì1J$c4b45fd5-d68a-4a83-8e64-0ebebf972e73
+º
+java:S1130("wRemove the declaration of thrown exception 'dataAccess.DataAccessException', as it cannot be thrown from method's body.(„¢ƒì8Ôà×€ì1J$59fdf465-4b06-4037-89e0-c767c7e4e9ce
+°
+java:S1130("mRemove the declaration of thrown exception 'ui.ResponseException', as it cannot be thrown from method's body.(„¢ƒì8Õà×€ì1J$b2074c20-a322-4d62-bb90-d7b0ec9c9b5c
+
+java:S18542"<Remove this useless assignment to local variable "response".(ÿµô¸8Öà×€ì1J$80733cc0-5989-476e-8bff-83c6d552370e
+š
+java:S27377"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8×à×€ì1J$a5c03972-42d1-4998-a5be-269a6b9b74f0
+p
+java:S14812"-Remove this unused "response" local variable.(ÿµô¸8Øà×€ì1J$58626c2b-6de6-47d9-bef3-ad3e7ea03cb9
+~
+java:S26963"6Make the enclosing method "static" or remove this set.(ÇéßŽúÿÿÿÿ8Ùà×€ì1J$ea1e7c5f-42f9-469c-b37f-d48127385a0a
+Ÿ
+java:S2737I"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(¤­—Îþÿÿÿÿ8Úà×€ì1J$2787ea01-1c2e-4cd7-94a1-2bc13385bfaa
+r	java:S106O"+Replace this use of System.out by a logger.(ý¸ç°øÿÿÿÿ8Ýà×€ì1J$c35732e6-2977-45c4-a83c-5692633e869c
+~
+java:S2696V"6Make the enclosing method "static" or remove this set.(ÇéßŽúÿÿÿÿ8áà×€ì1J$0bb14c4b-79e2-4e1c-9f20-0d414bcaca8c
+€
+java:S1854]"8Remove this useless assignment to local variable "list".(èÿÁ€úÿÿÿÿ8áà×€ì1J$36292c86-c726-4776-bfa8-6361e9e88826
+º
+java:S1130["wRemove the declaration of thrown exception 'dataAccess.DataAccessException', as it cannot be thrown from method's body.(çÓœ¶8áà×€ì1J$737261af-7f4c-410e-b2a3-2440ade9032f
+°
+java:S1130["mRemove the declaration of thrown exception 'ui.ResponseException', as it cannot be thrown from method's body.(çÓœ¶8âà×€ì1J$0dd67584-666e-4e55-b7ad-e5df399b9997
+q
+java:S1481]")Remove this unused "list" local variable.(èÿÁ€úÿÿÿÿ8ãà×€ì1J$0686666a-b727-436b-b29e-8aa338037439

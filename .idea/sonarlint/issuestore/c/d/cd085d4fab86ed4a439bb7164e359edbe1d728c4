@@ -1,0 +1,24 @@
+
+’
+java:S1104"QMake board a static final constant or non-public and provide accessors if needed.(ËíºıÿÿÿÿJ$36bbe137-655d-4291-ae6a-dfb28edd4884
+l
+java:S1444"+Make this "public static board" field final(ËíºıÿÿÿÿJ$025ff16f-ff03-4bbf-ada9-15b379d9b29d
+š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(€´ÇùÿÿÿÿJ$2e7cea79-806c-4255-bcdb-27cc72a8f262
+•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ï²ùäJ$c140d3dc-acb8-43bf-94a4-1d3ab8625326
+š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(äÒ»ÂşÿÿÿÿJ$6cb28dee-99d4-4d85-a579-17f5e226f3a8
+•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¤J$7c551659-7bd6-4b2f-a2be-e6c5d98dde1b
+k	java:S106"+Replace this use of System.out by a logger.(ÌñÒÜÿÿÿÿÿJ$cbb9604d-99ad-413d-b96e-20b3d9b4507b
+]	java:S125"<This block of commented-out lines of code should be removed.(ÿÛ¶Şüÿÿÿÿ8øƒŠ€ì1
+“
+java:S3776!"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(„êĞ¥ıÿÿÿÿJ$c77235d9-4ebd-4141-a16a-fbda83b7f3e6
+k	java:S106""+Replace this use of System.out by a logger.(ÌñÒÜÿÿÿÿÿJ$f0a79bcd-a163-469a-a8ac-bf36911532d9
+k	java:S1063"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$726df702-764b-4fd2-bad8-35c288f1c346
+k	java:S106E"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$20e511b7-0dc3-4fa2-80b7-1fa7699a5c91
+e
+java:S1940V")Use the opposite operator ("!=") instead.(ÍªÀŒJ$343d5c39-9d6b-4ea7-9282-804f5918b9b7
+g	java:S106‘"+Replace this use of System.out by a logger.(ÄºêÎJ$8f58bd1b-45c6-4305-91ab-a93259c801a0
+g	java:S106“"+Replace this use of System.out by a logger.(ÓîÜúJ$c622ea76-c5fd-4251-b3dd-6d6fcdf82710
+f	java:S106•"+Replace this use of System.out by a logger.(¡äš'J$9e653774-f555-4283-9ed1-c188c8924c0f
+l	java:S106–"+Replace this use of System.out by a logger.(ªÓ¼áşÿÿÿÿJ$4fbd6d75-1692-4842-9852-51de0f0d26e0
+P
+java:S1144"3Remove this unused private "printEmptyRows" method.(Ë´h8¦„Š€ì1

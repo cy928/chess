@@ -9,9 +9,9 @@ public class PreLogin {
     ServerFacade server = new ServerFacade(Repl.serverURL);
     public String eval(String input) {
         try {
-            var tokens = input.toLowerCase().split(" ");
-            var cmd = (tokens.length > 0) ? tokens[0] : "help";
-            var parameters = Arrays.copyOfRange(tokens, 1, tokens.length);
+            String[] tokens = input.toLowerCase().split(" ");
+            String cmd = (tokens.length > 0) ? tokens[0] : "help";
+            String[] parameters = Arrays.copyOfRange(tokens, 1, tokens.length);
             return switch (cmd) {
                 case "register" -> register(parameters);
                 case "login" -> login(parameters);

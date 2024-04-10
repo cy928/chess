@@ -1,4 +1,4 @@
-package websocket;
+package webSocket;
 
 import webSocketMessages.serverMessages.ServerMessage;
 

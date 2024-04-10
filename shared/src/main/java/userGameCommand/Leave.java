@@ -3,7 +3,7 @@ package userGameCommand;
 import webSocketMessages.userCommands.UserGameCommand;
 
 public class Leave extends UserGameCommand {
-    Integer gameID;
+    public Integer gameID;
     public Leave(String authToken, Integer gameID) {
         super(authToken);
         this.gameID = gameID;

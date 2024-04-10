@@ -1,5 +1,6 @@
 package dataAccess;
 
+import chess.ChessGame;
 import request.CreateGameRequest;
 import request.JoinGameRequest;
 import result.CreateGameResult;
@@ -56,6 +57,12 @@ public class MemoryGameDAO implements GameDAO {
     public ListGameResult getGameList() {
         return new ListGameResult(gameDB);
     }
+
+    @Override
+    public ChessGame getSingleGame(Integer gameID) throws DataAccessException {
+        return null;
+    }
+
     @Override
     public void delete() { gameDB.clear(); }
 }

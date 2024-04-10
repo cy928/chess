@@ -1,4 +1,4 @@
-package websocket;
+package webSocket;
 
 import chess.ChessGame;
 import chess.ChessMove;
@@ -9,11 +9,8 @@ import javax.websocket.*;
 import java.net.URISyntaxException;
 import java.net.URI;
 
-import request.AuthToken;
-import ui.ResponseException;
 import userGameCommand.*;
 import webSocketMessages.serverMessages.ServerMessage;
-import webSocketMessages.userCommands.UserGameCommand;
 
 public class WebSocketFacade extends Endpoint {
     NotificationHandler notificationHandler;

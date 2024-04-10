@@ -2,10 +2,10 @@ package serverMessages;
 
 import webSocketMessages.serverMessages.ServerMessage;
 
-public class LoadGameMessage extends ServerMessage {
+public class Error extends ServerMessage {
     private String messageContent;
 
-    public LoadGameMessage(String messageContent) {
+    public Error(String messageContent) {
         super(ServerMessageType.ERROR);
         this.messageContent = messageContent;
     }

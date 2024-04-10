@@ -14,16 +14,15 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class GamePlayUI {
-    websocket.WebSocketFacade server;
+    webSocket.WebSocketFacade server;
     ChessGame game = new ChessGame();
     Integer gameId;
     ChessGame.TeamColor color;
-    BoardDrawing draw = new BoardDrawing();
     public String eval(String input) {
         try {
-            var tokens = input.toLowerCase().split(" ");
-            var cmd = (tokens.length > 0) ? tokens[0] : "help";
-            var parameters = Arrays.copyOfRange(tokens, 1, tokens.length);
+            String[] tokens = input.toLowerCase().split(" ");
+            String cmd = (tokens.length > 0) ? tokens[0] : "help";
+            String[] parameters = Arrays.copyOfRange(tokens, 1, tokens.length);
             return switch (cmd) {
                 case "redraw" -> redrawChessBoard();
                 case "leave" -> leave();
@@ -50,7 +49,7 @@ public class GamePlayUI {
             Repl.state = State.POSTLOGIN;
             return "You have left successfully!";
         }
-        catch(DataAccessException e){
+        catch (DataAccessException e) {
             throw e;
         }
 
@@ -70,8 +69,8 @@ public class GamePlayUI {
             server.makeMove(gameId, move);
             return redrawChessBoard();
         }
-        catch(DataAccessException | ResponseException ex){
-            throw ex;
+        catch (DataAccessException | ResponseException e) {
+            throw e;
         }
     }
     public String resign() throws DataAccessException, ResponseException {

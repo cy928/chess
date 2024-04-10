@@ -2,11 +2,11 @@ package serverMessages;
 
 import webSocketMessages.serverMessages.ServerMessage;
 
-public class ErrorMessage extends ServerMessage {
+public class Notification extends ServerMessage {
     private String messageContent;
 
-    public ErrorMessage(String messageContent) {
-        super(ServerMessageType.ERROR);
+    public Notification(String messageContent) {
+        super(ServerMessageType.NOTIFICATION);
         this.messageContent = messageContent;
     }
     public void setMessageContent(String messageContent) {

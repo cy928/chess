@@ -3,7 +3,7 @@ package userGameCommand;
 import webSocketMessages.userCommands.UserGameCommand;
 
 public class Resign extends UserGameCommand {
-    Integer gameID;
+    public Integer gameID;
     public Resign(String authToken, Integer gameID) {
         super(authToken);
         this.gameID = gameID;

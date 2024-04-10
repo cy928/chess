@@ -1,10 +1,8 @@
 package ui;
 
+import webSocket.NotificationHandler;
 import webSocketMessages.serverMessages.ServerMessage;
-import websocket.NotificationHandler;
-
 import java.util.Scanner;
-
 
 public class Repl implements NotificationHandler {
     static String serverURL;
@@ -48,7 +46,7 @@ public class Repl implements NotificationHandler {
 
 
             } catch (Throwable ex) {
-                String errorMessage=ex.toString();
+                String errorMessage = ex.toString();
                 System.out.print(errorMessage);
             }
         }

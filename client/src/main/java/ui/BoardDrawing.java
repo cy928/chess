@@ -25,15 +25,13 @@ public class BoardDrawing {
     public static void main(String[] args) {
         var out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         out.print(ERASE_SCREEN);
-//        printWholeBoard(board, ChessGame.TeamColor.WHITE);
-//        printEmptyRows();
-//        printWholeBoard(board, ChessGame.TeamColor.BLACK);
     }
 
     public static void printWholeBoard(ChessBoard board, ChessGame.TeamColor teamColor) {
+        System.out.println();
         var out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         printHeaders(out, teamColor);
-        if (teamColor == ChessGame.TeamColor.WHITE) {
+        if (teamColor == ChessGame.TeamColor.BLACK) {
             for (int i=0; i <= 9; i++) {
                 if (i > 0 && i < 9) {
                     out.print(boardEdgeColor);
@@ -97,7 +95,7 @@ public class BoardDrawing {
         out.print(boardEdgeColor);
         out.print(EMPTY);
         out.print(SET_TEXT_COLOR_BLACK);
-        if(callColor == ChessGame.TeamColor.BLACK) {
+        if(callColor == ChessGame.TeamColor.WHITE) {
             headers = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
         } else {
             headers = new String[]{"h", "g", "f", "e", "d", "c", "b", "a"};
@@ -116,7 +114,6 @@ public class BoardDrawing {
         out.print(" ");
     }
 
-    /*画每一个piece*/
     private static void printPiece(PrintStream out, ChessPiece.PieceType pieceType, ChessGame.TeamColor teamColor) {
         if (teamColor == ChessGame.TeamColor.WHITE) {
             out.print(SET_TEXT_COLOR_RED);
@@ -138,14 +135,6 @@ public class BoardDrawing {
             default -> pieceString = EMPTY;
         }
         out.print(pieceString);
-    }
-    private static void printEmptyRows() {
-        System.out.print(BoardDrawing.SeparateColor);
-        for (int i = 0; i <= 9; i++) {
-            System.out.print(EMPTY);
-        }
-        System.out.print(RESET_BG_COLOR);
-        System.out.println();
     }
 
     public void updateBoard(ChessGame chessGame) {

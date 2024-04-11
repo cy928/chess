@@ -27,6 +27,8 @@ public class Repl implements NotificationHandler {
                 System.out.print(preLogin.help());
             } else if (state == State.POSTLOGIN){
                 System.out.print(postLogin.help());
+            } else if (state == State.GAMEPLAYUI){
+                System.out.print(gamePlayUI.help());
             }
             System.out.print("\n>>>");
             String line = scanner.nextLine();

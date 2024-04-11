@@ -13,8 +13,8 @@ public class MemoryUserDAO implements UserDAO {
         if (userDB.get(information.username()) != null ) {
             throw new DataAccessException("Error: already taken");
         } else {
-            List<String> info_list = new ArrayList<>(Arrays.asList(information.password(), information.email()));
-            userDB.put(information.username(), info_list);
+            List<String> infoList = new ArrayList<>(Arrays.asList(information.password(), information.email()));
+            userDB.put(information.username(), infoList);
         }
     }
     @Override

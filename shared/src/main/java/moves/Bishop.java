@@ -15,28 +15,7 @@ public class Bishop extends ChessPiece {
     List<ChessMove> validMoves=new ArrayList<>();
 
     int[][] directions={{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
-
-    for (int[] direction : directions) {
-      int newRow=myPosition.getRow();
-      int newCol=myPosition.getColumn();
-      while (true) {
-        newRow+=direction[0];
-        newCol+=direction[1];
-        if (!isValidMove(newRow, newCol)) {
-          break;
-        }
-        ChessPosition newPosition=new ChessPosition(newRow, newCol);
-        ChessPiece targetPiece=board.getPiece(newPosition);
-        if (targetPiece == null) {
-          validMoves.add(new ChessMove(myPosition, newPosition, null));
-        } else {
-          if (targetPiece.getTeamColor() != getTeamColor()) {
-            validMoves.add(new ChessMove(myPosition, newPosition, null));
-          }
-          break;
-        }
-      }
-    }
+    validMoves = helperForQueenAndRookAndBishop(board, validMoves, directions, myPosition);
     return validMoves;
   }
 

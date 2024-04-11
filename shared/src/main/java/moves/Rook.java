@@ -14,27 +14,7 @@ public class Rook extends ChessPiece {
 
     int[][] directions={{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
-    for (int[] direction : directions) {
-      int newRow = myPosition.getRow();
-      int newCol = myPosition.getColumn();
-      while (true) {
-        newRow += direction[0];
-        newCol += direction[1];
-        if (!isValidMove(newRow, newCol)) {
-          break;
-        }
-        ChessPosition newPosition = new ChessPosition(newRow, newCol);
-        ChessPiece targetPiece = board.getPiece(newPosition);
-        if (targetPiece == null) {
-          validMoves.add(new ChessMove(myPosition, newPosition, null));
-        } else {
-          if (targetPiece.getTeamColor() != getTeamColor()) {
-            validMoves.add(new ChessMove(myPosition, newPosition, null));
-          }
-          break;
-        }
-      }
-    }
+    validMoves = helperForQueenAndRookAndBishop(board, validMoves, directions, myPosition);
     return validMoves;
   }
 

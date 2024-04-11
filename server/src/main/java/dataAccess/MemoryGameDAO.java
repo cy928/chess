@@ -37,13 +37,13 @@ public class MemoryGameDAO{
             Game game = gameDB.get(i);
             if (Objects.equals(game.gameID(), information.gameID())) {
                 if (Objects.equals(playerColor, "WHITE") & game.whiteUsername() == null) {
-                    Game game_wanted=new Game(game.gameID(), username, game.blackUsername(), game.gameName());
+                    Game gameWanted=new Game(game.gameID(), username, game.blackUsername(), game.gameName());
                     gameDB.remove(gameDB.get(i));
-                    gameDB.add(i, game_wanted);
+                    gameDB.add(i, gameWanted);
                 } else if (Objects.equals(playerColor, "BLACK") & game.blackUsername() == null) {
-                    Game game_wanted = new Game(game.gameID(), game.whiteUsername(), username, game.gameName());
+                    Game gameWanted = new Game(game.gameID(), game.whiteUsername(), username, game.gameName());
                     gameDB.remove(gameDB.get(i));
-                    gameDB.add(i, game_wanted);
+                    gameDB.add(i, gameWanted);
                 } else {
                     throw new DataAccessException("Error: already taken");
                 }

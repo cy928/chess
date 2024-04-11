@@ -14,19 +14,7 @@ public class King extends ChessPiece {
 
     int[][] directions={{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
-    for (int[] direction : directions) {
-      int newRow = myPosition.getRow() + direction[0];
-      int newCol = myPosition.getColumn() + direction[1];
-
-      if (isValidMove(newRow, newCol)) {
-        ChessPosition newPosition = new ChessPosition(newRow, newCol);
-        ChessPiece targetPiece = board.getPiece(newPosition);
-
-        if (targetPiece == null || targetPiece.getTeamColor() != getTeamColor()) {
-          validMoves.add(new ChessMove(myPosition, newPosition, null));
-        }
-      }
-    }
+    validMoves = helperForKingAndKnight(board, validMoves, directions, myPosition);
     return validMoves;
   }
 

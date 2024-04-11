@@ -9,9 +9,6 @@ public class Error extends ServerMessage {
         super(ServerMessageType.ERROR);
         this.errorMessage = msgContent;
     }
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage=errorMessage;
-    }
     public String getMessage() {
         return errorMessage;
     }

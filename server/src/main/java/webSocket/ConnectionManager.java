@@ -51,8 +51,7 @@ public class ConnectionManager {
     public void sendGame(Integer gameID, LoadGame msg) throws IOException {
         for (Connection conn : connectionsMap.get(gameID)) {
             if (conn.session.isOpen()) {
-                    conn.send(new Gson().toJson(msg));
-
+                conn.send(new Gson().toJson(msg));
             }
         }
     }

@@ -2,6 +2,7 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import moves.*;
 
@@ -88,4 +89,50 @@ public class ChessPiece {
     public int hashCode() {
         return Objects.hash(pieceType, pieceColor);
     }
+
+    public List<ChessMove> helperForQueenAndRookAndBishop(ChessBoard board, List<ChessMove> validMoves, int[][] directions, ChessPosition myPosition) {
+        for (int[] direction : directions) {
+            int newRow = myPosition.getRow();
+            int newCol = myPosition.getColumn();
+            while (true) {
+                newRow += direction[0];
+                newCol += direction[1];
+                if (!isValidMove(newRow, newCol)) {
+                    break;
+                }
+                ChessPosition newPosition = new ChessPosition(newRow, newCol);
+                ChessPiece targetPiece = board.getPiece(newPosition);
+                if (targetPiece == null) {
+                    validMoves.add(new ChessMove(myPosition, newPosition, null));
+                } else {
+                    if (targetPiece.getTeamColor() != getTeamColor()) {
+                        validMoves.add(new ChessMove(myPosition, newPosition, null));
+                    }
+                    break;
+                }
+            }
+        }
+        return validMoves;
+    }
+
+    public List<ChessMove> helperForKingAndKnight(ChessBoard board, List<ChessMove> validMoves, int[][] directions, ChessPosition myPosition) {
+        for (int[] direction : directions) {
+            int newRow = myPosition.getRow() + direction[0];
+            int newCol = myPosition.getColumn() + direction[1];
+
+            if (isValidMove(newRow, newCol)) {
+                ChessPosition newPosition = new ChessPosition(newRow, newCol);
+                ChessPiece targetPiece = board.getPiece(newPosition);
+
+                if (targetPiece == null || targetPiece.getTeamColor() != getTeamColor()) {
+                    validMoves.add(new ChessMove(myPosition, newPosition, null));
+                }
+            }
+        }
+        return validMoves;
+    }
+    private boolean isValidMove(int row, int col) {
+        return row >= 1 && row <= 8 & col >= 1 && col <= 8;
+    }
+
 }

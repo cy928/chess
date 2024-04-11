@@ -121,7 +121,7 @@ public class WebSocketHandler {
             gameDAO.deleteGameID(command.gameID);
             String message=String.format("%s has resigned from the game!", userName);
             Notification notification=new Notification(message);
-            connectionManager.broadcast(command.gameID, command.getAuthString(), notification);
+            connectionManager.broadcast(command.gameID, null, notification);
             connectionManager.removeGameID(command.gameID);
         } catch (IOException | DataAccessException ex) {
             Error errorMessage = new Error(ex.getMessage());

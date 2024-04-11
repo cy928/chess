@@ -1,6 +1,6 @@
 package clientTests;
 
-import dataAccess.DataAccessException;
+import dataAccessError.DataAccessException;
 import org.junit.jupiter.api.*;
 import result.CreateGameResult;
 import result.ListGameResult;

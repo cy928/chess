@@ -1,5 +1,6 @@
 package service;
 import dataAccess.*;
+import dataAccessError.DataAccessException;
 
 import java.sql.SQLException;
 

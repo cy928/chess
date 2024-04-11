@@ -1,6 +1,7 @@
 package dataAccess;
 
 import chess.ChessGame;
+import dataAccessError.DataAccessException;
 import request.CreateGameRequest;
 import request.JoinGameRequest;
 import result.CreateGameResult;
@@ -13,9 +14,8 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MemoryGameDAO implements GameDAO {
+public class MemoryGameDAO{
     static List<Game> gameDB = new ArrayList<>();
-    @Override
     public CreateGameResult createGame(CreateGameRequest information){
         Integer gameID = gameDB.size()+1;
         Game game = new Game(gameID, null, null, information.gameName());
@@ -23,7 +23,6 @@ public class MemoryGameDAO implements GameDAO {
         return new CreateGameResult(gameID);
     }
 
-    @Override
     public void joinGame(String username, JoinGameRequest information) throws DataAccessException {
         if (information.playerColor() == null) {
             for (Game game : gameDB) {
@@ -53,16 +52,10 @@ public class MemoryGameDAO implements GameDAO {
         }
         throw new DataAccessException("Error: bad request");
     }
-    @Override
+
     public ListGameResult getGameList() {
         return new ListGameResult(gameDB);
     }
 
-    @Override
-    public ChessGame getSingleGame(Integer gameID) throws DataAccessException {
-        return null;
-    }
-
-    @Override
     public void delete() { gameDB.clear(); }
 }

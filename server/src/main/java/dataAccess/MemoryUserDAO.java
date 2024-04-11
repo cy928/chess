@@ -1,5 +1,6 @@
 package dataAccess;
 
+import dataAccessError.DataAccessException;
 import request.LoginRequest;
 import request.RegisterRequest;
 

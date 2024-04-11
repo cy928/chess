@@ -1,6 +1,6 @@
 package ui;
 
-import dataAccess.DataAccessException;
+import dataAccessError.DataAccessException;
 import result.UserResult;
 
 import java.util.Arrays;

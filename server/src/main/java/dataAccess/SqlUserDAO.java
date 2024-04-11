@@ -1,5 +1,6 @@
 package dataAccess;
 
+import dataAccessError.DataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import request.LoginRequest;
 import request.RegisterRequest;

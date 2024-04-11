@@ -13,6 +13,16 @@ public class Connection {
         this.authToken = authToken;
         this.session = session;
     }
+    @Override
+    public boolean equals (Object object) {
+        if (this == object) {
+          return true;
+        } else if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Connection that = (Connection) object;
+        return authToken.equals(that.authToken) && session.equals(that.session);
+    }
     @OnWebSocketMessage
     public void send(String msg) throws IOException {
         session.getRemote().sendString(msg);

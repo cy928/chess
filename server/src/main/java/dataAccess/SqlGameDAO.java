@@ -3,6 +3,7 @@ package dataAccess;
 import chess.ChessBoard;
 import chess.ChessGame;
 import com.google.gson.Gson;
+import dataAccessError.DataAccessException;
 import request.CreateGameRequest;
 import request.JoinGameRequest;
 import result.CreateGameResult;
@@ -110,18 +111,139 @@ public class SqlGameDAO implements GameDAO {
 
     @Override
     public ChessGame getSingleGame(Integer gameID) throws DataAccessException {
-        ChessGame chessGame = new ChessGame();
         try (Connection connection = DatabaseManager.getConnection())  {
-            try (PreparedStatement prepStatement = connection.prepareStatement("SELECT id FROM gameTable WHERE gameID=? ")) {
-                try (ResultSet result = prepStatement.executeQuery()) {
-                    String game = "";
+            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT chessGame FROM gameTable WHERE gameID=? ")) {
+                preparedStatement.setInt(1, gameID);
+                try (ResultSet result = preparedStatement.executeQuery()) {
+                    String chessGame = "";
                     if (result.next()) {
-                        game = result.getString("id");
+                        chessGame = result.getString("chessGame");
+                    } else {
+                        throw new DataAccessException("Error: Did not find any chess game.");
                     }
-                    ChessBoard chessBoard = new Gson().fromJson(game, ChessBoard.class);
-                    chessGame.setBoard(chessBoard);
-                    return chessGame;
-               }
+                    return new Gson().fromJson(chessGame, ChessGame.class);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void leavePlayer(Integer gameID, ChessGame.TeamColor teamColor) throws DataAccessException {
+        try (Connection connection = DatabaseManager.getConnection()) {
+            if (teamColor.toString().equalsIgnoreCase("black")) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE gameTable SET blackUsername=? WHERE gameID=?")) {
+                    preparedStatement.setString(1, null);
+                    preparedStatement.setInt(2, gameID);
+                    preparedStatement.executeUpdate();
+                }
+            } else if (teamColor.toString().equalsIgnoreCase("white")) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE gameTable SET whiteUsername=? WHERE gameID=?")) {
+                    preparedStatement.setString(1, null);
+                    preparedStatement.setInt(2, gameID);
+                    preparedStatement.executeUpdate();
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public ChessGame.TeamColor getTeamColor(Integer gameID, String userName) throws DataAccessException {
+        try (Connection connection = DatabaseManager.getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT whiteUsername,blackUsername FROM gameTable WHERE gameID=?")) {
+                preparedStatement.setInt(1, gameID);
+                try (ResultSet result = preparedStatement.executeQuery()) {
+                    if (result.next()) {
+                        String blackUsername = result.getString("blackUsername");
+                        String whiteUsername = result.getString("whiteUsername");
+                        if (blackUsername.equalsIgnoreCase(userName)){
+                            return ChessGame.TeamColor.BLACK;
+                        } else if (whiteUsername.equalsIgnoreCase(userName)){
+                            return ChessGame.TeamColor.WHITE;
+                        } else {
+                            throw new DataAccessException("Error: Observer ia not able to resign.");
+                        }
+                    } else {
+                        throw new DataAccessException("Error: Did not find any chess game.");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void updateGame(Integer gameID, ChessGame chessGame) throws DataAccessException {
+        try (Connection connection = DatabaseManager.getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE gameTable SET chessGame=? WHERE gameID=?")) {
+                preparedStatement.setString(1, new Gson().toJson(chessGame));
+                preparedStatement.setInt(2, gameID);
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void checkGameID(Integer gameID, ChessGame.TeamColor teamColor, String username) throws DataAccessException {
+        try (Connection connection = DatabaseManager.getConnection()) {
+            if (teamColor == null) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM gameTable WHERE gameID=?")) {
+                    preparedStatement.setInt(1, gameID);
+                    try (ResultSet result = preparedStatement.executeQuery()) {
+                        if (result.next()) {
+                            return;
+                        } else {
+                            throw new DataAccessException("Error: Did not find any chess game");
+                        }
+                    }
+                }
+            } else if (teamColor.toString().equalsIgnoreCase("black")) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT blackUsername FROM gameTable WHERE gameID=?")) {
+                    preparedStatement.setInt(1, gameID);
+                    try (ResultSet result = preparedStatement.executeQuery()) {
+                        if (result.next()) {
+                            String blackUsername = result.getString("blackUsername");
+                            if (!username.equalsIgnoreCase(blackUsername)) {
+                                throw new DataAccessException("Error: Usernames do not match.");
+                            }
+                        } else {
+                            throw new DataAccessException("Error: Did not find any chess game");
+                        }
+                    }
+                }
+            } else if (teamColor.toString().equalsIgnoreCase("white")) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT whiteUsername FROM gameTable WHERE gameID=?")) {
+                    preparedStatement.setInt(1, gameID);
+                    try (ResultSet result = preparedStatement.executeQuery()) {
+                        if (result.next()) {
+                            String whiteUsername = result.getString("whiteUsername");
+                            if (!username.equalsIgnoreCase(whiteUsername)) {
+                                throw new DataAccessException("Error: Usernames do not match.");
+                            }
+                        } else {
+                            throw new DataAccessException("Error: Did not find any chess game");
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
+
+    @Override
+    public void deleteGameID(Integer gameID) throws DataAccessException {
+        try (Connection connection = DatabaseManager.getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM gameTable WHERE gameID=?")) {
+                preparedStatement.setInt(1, gameID);
+                preparedStatement.executeUpdate();
             }
         } catch (SQLException ex) {
             throw new DataAccessException(ex.getMessage());

@@ -1,5 +1,6 @@
 package dataAccess;
 
+import dataAccessError.DataAccessException;
 import request.AuthToken;
 
 import java.util.*;

@@ -1,7 +1,7 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.DataAccessException;
+import dataAccessError.DataAccessException;
 import request.AuthToken;
 import request.CreateGameRequest;
 import result.CreateGameResult;

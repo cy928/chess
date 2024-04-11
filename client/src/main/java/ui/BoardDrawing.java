@@ -139,8 +139,6 @@ public class BoardDrawing {
         }
         out.print(pieceString);
     }
-
-
     private static void printEmptyRows() {
         System.out.print(BoardDrawing.SeparateColor);
         for (int i = 0; i <= 9; i++) {
@@ -148,5 +146,9 @@ public class BoardDrawing {
         }
         System.out.print(RESET_BG_COLOR);
         System.out.println();
+    }
+
+    public void updateBoard(ChessGame chessGame) {
+        board = chessGame.getBoard();
     }
 }

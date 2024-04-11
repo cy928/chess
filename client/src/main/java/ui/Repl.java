@@ -27,8 +27,6 @@ public class Repl implements NotificationHandler {
                 System.out.print(preLogin.help());
             } else if (state == State.POSTLOGIN){
                 System.out.print(postLogin.help());
-            } else if (state == State.GAMEPLAYUI){
-                System.out.print(gamePlayUI.help());
             }
             System.out.print("\n>>>");
             String line = scanner.nextLine();
@@ -38,6 +36,8 @@ public class Repl implements NotificationHandler {
                     resultString = preLogin.eval(line);
                 } else if (state == State.POSTLOGIN) {
                     resultString = postLogin.eval(line);
+                } else if (state == State.GAMEPLAYUI) {
+                    resultString = gamePlayUI.eval(line);
                 }
 
             System.out.print(resultString);
@@ -53,8 +53,7 @@ public class Repl implements NotificationHandler {
         System.out.println();
     }
 
-    @Override
-    public void notify(ServerMessage notification) {
+    public void notify(String notification) {
         System.out.println(notification);
         System.out.print("\n>>>");
     }

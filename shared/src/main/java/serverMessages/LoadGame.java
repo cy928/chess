@@ -1,18 +1,16 @@
 package serverMessages;
 
+import chess.ChessGame;
+import com.google.gson.Gson;
 import webSocketMessages.serverMessages.ServerMessage;
 
 public class LoadGame extends ServerMessage {
-    private String messageContent;
-
-    public LoadGame(String messageContent) {
-        super(ServerMessageType.ERROR);
-        this.messageContent = messageContent;
-    }
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public ChessGame game;
+    public LoadGame(ChessGame chessGame) {
+        super(ServerMessageType.LOAD_GAME);
+        this.game= chessGame;
     }
     public String getMessage() {
-        return messageContent;
+        return new Gson().toJson(game.getBoard());
     }
 }

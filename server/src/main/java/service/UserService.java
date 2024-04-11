@@ -1,6 +1,7 @@
 package service;
 
 import dataAccess.*;
+import dataAccessError.DataAccessException;
 import request.AuthToken;
 import request.LoginRequest;
 import request.RegisterRequest;

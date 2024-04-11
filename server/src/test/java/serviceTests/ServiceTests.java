@@ -3,7 +3,7 @@ package serviceTests;
 import request.*;
 import result.ListGameResult;
 import result.CreateGameResult;
-import dataAccess.DataAccessException;
+import dataAccessError.DataAccessException;
 import org.junit.jupiter.api.*;
 import service.ClearService;
 import service.GameService;

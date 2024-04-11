@@ -4,7 +4,7 @@ import chess.ChessGame;
 import chess.ChessMove;
 import chess.ChessPosition;
 import chess.InvalidMoveException;
-import dataAccess.DataAccessException;
+import dataAccessError.DataAccessException;
 
 
 import java.util.Arrays;
@@ -14,10 +14,11 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class GamePlayUI {
-    webSocket.WebSocketFacade server;
-    ChessGame game = new ChessGame();
-    Integer gameId;
-    ChessGame.TeamColor color;
+    static webSocket.WebSocketFacade server;
+    public static ChessGame chessGame = new ChessGame();
+    public static BoardDrawing drawing = new BoardDrawing();
+    static Integer gameId;
+    public static ChessGame.TeamColor teamColor;
     public String eval(String input) {
         try {
             String[] tokens = input.toLowerCase().split(" ");
@@ -36,7 +37,7 @@ public class GamePlayUI {
         }
     }
     public String redrawChessBoard() throws DataAccessException, ResponseException {
-        if (color == ChessGame.TeamColor.BLACK) {
+        if (teamColor == ChessGame.TeamColor.BLACK) {
             BoardDrawing.printWholeBoard(BoardDrawing.board, ChessGame.TeamColor.BLACK);
         } else {
             BoardDrawing.printWholeBoard(BoardDrawing.board, ChessGame.TeamColor.WHITE);
@@ -45,7 +46,7 @@ public class GamePlayUI {
     }
     public String leave() throws DataAccessException, ResponseException {
         try {
-            server.leave(gameId);
+            server.leave(gameId, teamColor);
             Repl.state = State.POSTLOGIN;
             return "You have left successfully!";
         }
@@ -62,7 +63,7 @@ public class GamePlayUI {
             ChessPosition endPosition=new ChessPosition(parseInt(end[0]), parseInt(end[1]));
             ChessMove move=new ChessMove(startPosition, endPosition, null);
             try {
-                game.makeMove(move);
+                chessGame.makeMove(move);
             } catch (InvalidMoveException e) {
                 return e.getMessage();
             }
@@ -78,9 +79,9 @@ public class GamePlayUI {
             System.out.println("Are you sure to resign from the game? (yes/no)");
             Scanner scanner = new Scanner(System.in);
             String line = scanner.nextLine();
-            if (line.toLowerCase() == "no") {
+            if (line.equalsIgnoreCase("no")) {
                 return "You are back to the game!";
-            } else if (line.toLowerCase() == "yes") {
+            } else if (line.equalsIgnoreCase("yes")) {
                 server.resign(gameId);
                 Repl.state = State.POSTLOGIN;
                 return "You have resigned from the game!";
@@ -89,7 +90,7 @@ public class GamePlayUI {
     }
     public String highlightLegalMoves(String[] parameters) throws DataAccessException, ResponseException {
         String[] currentSpot = parameters[0].toLowerCase().split("");
-        Collection<ChessMove> list = game.validMoves(new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])));
+        Collection<ChessMove> list = chessGame.validMoves(new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])));
         return "These are the legal moves you can make!";
     }
     public String help() {

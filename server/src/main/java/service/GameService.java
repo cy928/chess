@@ -1,6 +1,7 @@
 package service;
 
 import dataAccess.*;
+import dataAccessError.DataAccessException;
 import request.AuthToken;
 import request.CreateGameRequest;
 import request.JoinGameRequest;
@@ -8,7 +9,7 @@ import result.CreateGameResult;
 import result.ListGameResult;
 
 public class GameService {
-    public CreateGameResult createGame(AuthToken authToken, CreateGameRequest information) throws DataAccessException{
+    public CreateGameResult createGame(AuthToken authToken, CreateGameRequest information) throws DataAccessException {
         SqlAuthDAO authDAO = new SqlAuthDAO();
         SqlGameDAO gameDAO = new SqlGameDAO();
         if (information.gameName() == null) {

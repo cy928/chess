@@ -3,16 +3,16 @@ package serverMessages;
 import webSocketMessages.serverMessages.ServerMessage;
 
 public class Notification extends ServerMessage {
-    private String messageContent;
+    private String message;
 
-    public Notification(String messageContent) {
+    public Notification(String msgContent) {
         super(ServerMessageType.NOTIFICATION);
-        this.messageContent = messageContent;
+        this.message= msgContent;
     }
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public void setMessage(String message) {
+        this.message=message;
     }
     public String getMessage() {
-        return messageContent;
+        return message;
     }
 }

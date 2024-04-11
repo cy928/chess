@@ -1,7 +1,7 @@
 package ui;
 
 import chess.ChessGame;
-import dataAccess.DataAccessException;
+import dataAccessError.DataAccessException;
 import result.CreateGameResult;
 import result.Game;
 import result.ListGameResult;
@@ -62,25 +62,27 @@ public class PostLogin {
         Integer gameID = parseInt(parameters[0]);
         WebSocketFacade webServer = new WebSocketFacade(Repl.serverURL, this.notificationHandler, authToken);
         webServer.joinObserver(gameID);
-        Repl.gamePlayUI.color = color;
-        Repl.gamePlayUI.gameId = gameID;
-        Repl.gamePlayUI.server = webServer;
+        Repl.state = State.GAMEPLAYUI;
+        GamePlayUI.teamColor= color;
+        GamePlayUI.gameId= gameID;
+        GamePlayUI.server= webServer;
         return "You are now observing the game!";
     }
     public String join(String[] parameters) throws DataAccessException, ResponseException {
         server.join(parameters);
         ChessGame.TeamColor color;
         Integer gameID = parseInt(parameters[0]);
-        if (Objects.equals(parameters[1], "black")) {
+        if (parameters[1].equalsIgnoreCase("black")) {
             color = ChessGame.TeamColor.BLACK;
         } else {
             color = ChessGame.TeamColor.WHITE;
         }
         WebSocketFacade webServer = new WebSocketFacade(Repl.serverURL, this.notificationHandler, authToken);
         webServer.joinPlayer(gameID, color);
-        Repl.gamePlayUI.color = color;
-        Repl.gamePlayUI.gameId = gameID;
-        Repl.gamePlayUI.server = webServer;
+        Repl.state = State.GAMEPLAYUI;
+        GamePlayUI.teamColor= color;
+        GamePlayUI.gameId= gameID;
+        GamePlayUI.server= webServer;
         return "You have joined a game!";
     }
     public String clearDatabase() throws DataAccessException, ResponseException {

@@ -91,6 +91,11 @@ public class GamePlayUI {
     public String highlightLegalMoves(String[] parameters) throws DataAccessException, ResponseException {
         String[] currentSpot = parameters[0].toLowerCase().split("");
         Collection<ChessMove> moves = chessGame.validMoves(new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])));
+        if (teamColor == ChessGame.TeamColor.BLACK) {
+            drawing.highlightValid(BoardDrawing.board, ChessGame.TeamColor.BLACK, new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])), moves);
+        } else {
+            drawing.highlightValid(BoardDrawing.board, ChessGame.TeamColor.WHITE, new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])), moves);
+        }
         return "These are the legal moves you can make!";
     }
     public String help() {

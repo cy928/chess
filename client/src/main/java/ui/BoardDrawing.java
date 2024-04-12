@@ -151,13 +151,8 @@ public class BoardDrawing {
                 for (int j=7; j >= 0; j--) {
                     printHighlightBoard(board, currentPosition, validMoves, out, i, j);
                 }
-                if (i > 0 && i < 9) {
-                    out.print(boardEdgeColor);
-                    out.print(SET_TEXT_COLOR_BLACK);
-                    printLetterWithSpaces(out, String.valueOf(i));
-                    out.print(RESET_BG_COLOR);
-                    System.out.println();
-                }
+                printRowNumber(i, out);
+
             }
         } else {
             for (int i = 9; i >= 0; i--){
@@ -169,13 +164,7 @@ public class BoardDrawing {
                 for (int j = 0; j <= 7; j++){
                     printHighlightBoard(board, currentPosition, validMoves, out, i, j);
                 }
-                if(i>0 && i<9) {
-                    out.print(boardEdgeColor);
-                    out.print(SET_TEXT_COLOR_BLACK);
-                    printLetterWithSpaces(out, String.valueOf(i));
-                    out.print(RESET_BG_COLOR);
-                    System.out.println();
-                }
+                printRowNumber(i, out);
             }
         }
         printHeaders(out, teamColor);

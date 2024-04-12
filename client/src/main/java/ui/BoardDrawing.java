@@ -137,6 +137,4 @@ public class BoardDrawing {
     public void updateBoard(ChessGame chessGame) {
         board = chessGame.getBoard();
     }
-
-    
 }

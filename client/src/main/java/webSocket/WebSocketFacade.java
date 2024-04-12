@@ -42,9 +42,10 @@ public class WebSocketFacade extends Endpoint {
                         GamePlayUI.drawing.updateBoard(loadGame.game);
                         if (GamePlayUI.teamColor == ChessGame.TeamColor.BLACK) {
                             BoardDrawing.printWholeBoard(BoardDrawing.board, ChessGame.TeamColor.BLACK);
-                        } else if (GamePlayUI.teamColor == ChessGame.TeamColor.WHITE) {
+                        } else {
                             BoardDrawing.printWholeBoard(BoardDrawing.board, ChessGame.TeamColor.WHITE);
                         }
+                        System.out.print("\n>>>");
                     } else if (result.getServerMessageType() == ServerMessage.ServerMessageType.ERROR) {
                         Error errorMessage = new Gson().fromJson(message, Error.class);
                     }

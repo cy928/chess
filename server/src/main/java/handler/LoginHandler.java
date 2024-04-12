@@ -22,10 +22,14 @@ public class LoginHandler implements Route {
             response.status(200);
             return new Gson().toJson(resp);
         } catch (DataAccessException e) {
-            response.status(401);
-            ErrorResult err = new ErrorResult(e.getMessage());
-            response.body(new Gson().toJson(err));
-            return new Gson().toJson(err);
+            return handleError(response, e);
         }
+    }
+
+    public static String handleError(Response response, Exception e) {
+        response.status(401);
+        ErrorResult err = new ErrorResult(e.getMessage());
+        response.body(new Gson().toJson(err));
+        return new Gson().toJson(err);
     }
 }

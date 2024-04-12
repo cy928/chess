@@ -149,7 +149,7 @@ public class ChessGame {
                 validMoves.addAll(validMoves(position));
             }
         }
-      return validMoves.isEmpty();
+        return validMoves.isEmpty();
     }
 
     /**

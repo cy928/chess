@@ -102,7 +102,7 @@ public class WebSocketHandler {
             connectionManager.remove(command.gameID, conn);
             String message=String.format("%s has left the game!", userName);
             Notification notification=new Notification(message);
-            connectionManager.broadcast(command.gameID, null, notification);
+            connectionManager.broadcast(command.gameID, command.getAuthString(), notification);
         } catch (IOException | DataAccessException ex) {
             Error errorMessage = new Error(ex.getMessage());
             connectionManager.sendError(conn, errorMessage);
@@ -158,10 +158,11 @@ public class WebSocketHandler {
                 color = "White";
                 opponent = "Black";
             }
+
             if (game.isInStalemate(teamColor)) {
                 String result = "It's isInStalemate. It's a tie!";
                 Notification notification1 = new Notification(result);
-                connectionManager.broadcast(command.gameID, command.getAuthString(), notification1);
+                connectionManager.broadcast(command.gameID, null, notification1);
                 gameDAO.checkGameID(command.gameID, null, command.getAuthString());
                 gameDAO.deleteGameID(command.gameID);
                 connectionManager.removeGameID(command.gameID);
@@ -170,7 +171,7 @@ public class WebSocketHandler {
 
                 String result = String.format("%sPlayer is isInCheckMate. %sPlayer win!",color, opponent );
                 Notification notification2 = new Notification(result);
-                connectionManager.broadcast(command.gameID, command.getAuthString(), notification2);
+                connectionManager.broadcast(command.gameID, null, notification2);
                 gameDAO.checkGameID(command.gameID, null, command.getAuthString());
                 gameDAO.deleteGameID(command.gameID);
                 connectionManager.removeGameID(command.gameID);

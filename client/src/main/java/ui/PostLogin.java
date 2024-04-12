@@ -57,7 +57,7 @@ public class PostLogin {
         return output.toString();
     }
     public String observe(String[] parameters) throws DataAccessException {
-        ChessGame.TeamColor color = ChessGame.TeamColor.WHITE;
+        ChessGame.TeamColor color = null;
         Integer gameID = parseInt(parameters[0]);
         WebSocketFacade webServer = new WebSocketFacade(Repl.serverURL, this.notificationHandler, authToken);
         webServer.joinObserver(gameID);

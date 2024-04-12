@@ -11,6 +11,8 @@ import spark.Route;
 
 import java.sql.SQLException;
 
+import static handler.LoginHandler.handleError;
+
 public class LogoutHandler implements Route {
     @Override
     public Object handle(Request request, Response response) {
@@ -21,10 +23,7 @@ public class LogoutHandler implements Route {
             response.status(200);
             return "{}";
         } catch (DataAccessException | SQLException e) {
-            response.status(401);
-            ErrorResult err = new ErrorResult(e.getMessage());
-            response.body(new Gson().toJson(err));
-            return new Gson().toJson(err);
+            return handleError(response, e);
         }
 
     }

@@ -87,7 +87,7 @@ public class WebSocketHandler {
         }
     }
 
-    public void leave(Session session, String msg) throws IOException, DataAccessException {
+    public void leave(Session session, String msg) throws IOException {
         Leave command = new Gson().fromJson(msg, Leave.class);
         Connection conn = new Connection(command.getAuthString(), session);
         try {
@@ -102,7 +102,7 @@ public class WebSocketHandler {
             connectionManager.remove(command.gameID, conn);
             String message=String.format("%s has left the game!", userName);
             Notification notification=new Notification(message);
-            connectionManager.broadcast(command.gameID, command.getAuthString(), notification);
+            connectionManager.broadcast(command.gameID, null, notification);
         } catch (IOException | DataAccessException ex) {
             Error errorMessage = new Error(ex.getMessage());
             connectionManager.sendError(conn, errorMessage);
@@ -149,6 +149,33 @@ public class WebSocketHandler {
             Notification notification=new Notification(message);
             connectionManager.broadcast(command.gameID, command.getAuthString(), notification);
             connectionManager.sendGame(command.gameID, new LoadGame(game));
+            String color = "";
+            String opponent = "";
+            if (teamColor == ChessGame.TeamColor.BLACK) {
+                color = "Black";
+                opponent = "White";
+            } else {
+                color = "White";
+                opponent = "Black";
+            }
+            if (game.isInStalemate(teamColor)) {
+                String result = "It's isInStalemate. It's a tie!";
+                Notification notification1 = new Notification(result);
+                connectionManager.broadcast(command.gameID, command.getAuthString(), notification1);
+                gameDAO.checkGameID(command.gameID, null, command.getAuthString());
+                gameDAO.deleteGameID(command.gameID);
+                connectionManager.removeGameID(command.gameID);
+            }
+            if (game.isInCheckmate(teamColor)) {
+
+                String result = String.format("%sPlayer is isInCheckMate. %sPlayer win!",color, opponent );
+                Notification notification2 = new Notification(result);
+                connectionManager.broadcast(command.gameID, command.getAuthString(), notification2);
+                gameDAO.checkGameID(command.gameID, null, command.getAuthString());
+                gameDAO.deleteGameID(command.gameID);
+                connectionManager.removeGameID(command.gameID);
+            }
+
         } catch (InvalidMoveException | DataAccessException ex) {
             Error errorMessage;
             if (ex.getMessage() != null) {

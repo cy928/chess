@@ -9,7 +9,6 @@ import webSocket.NotificationHandler;
 import webSocket.WebSocketFacade;
 import static ui.ServerFacade.authToken;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 

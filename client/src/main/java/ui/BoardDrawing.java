@@ -1,12 +1,10 @@
 package ui;
 
-import chess.ChessBoard;
-import chess.ChessGame;
-import chess.ChessPiece;
-import chess.ChessPosition;
+import chess.*;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 
 import static ui.EscapeSequences.*;
 
@@ -21,7 +19,6 @@ public class BoardDrawing {
     private static final String boardBlackColor = SET_BG_COLOR_DARK_GREY;
     private static final String boardWhiteColor = SET_BG_COLOR_WHITE;
     private static final String boardEdgeColor = SET_BG_COLOR_LIGHT_GREY;
-    private static final String SeparateColor = SET_BG_COLOR_DARK_GREY;
     public static void main(String[] args) {
         var out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         out.print(ERASE_SCREEN);
@@ -140,4 +137,6 @@ public class BoardDrawing {
     public void updateBoard(ChessGame chessGame) {
         board = chessGame.getBoard();
     }
+
+    
 }

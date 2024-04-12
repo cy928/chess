@@ -1,7 +1,6 @@
 package ui;
 
 import webSocket.NotificationHandler;
-import webSocketMessages.serverMessages.ServerMessage;
 import java.util.Scanner;
 
 public class Repl implements NotificationHandler {

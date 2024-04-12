@@ -57,9 +57,9 @@ public class GamePlayUI {
     }
     public String makeMove(String[] parameters) throws DataAccessException, ResponseException {
         try {
-            String[] start=parameters[0].toLowerCase().split("");
+            String[] start=parameters[0].split("");
             ChessPosition startPosition=new ChessPosition(parseInt(start[0]), parseInt(start[1]));
-            String[] end=parameters[1].toLowerCase().split("");
+            String[] end=parameters[1].split("");
             ChessPosition endPosition=new ChessPosition(parseInt(end[0]), parseInt(end[1]));
             ChessMove move=new ChessMove(startPosition, endPosition, null);
             try {
@@ -90,7 +90,12 @@ public class GamePlayUI {
     }
     public String highlightLegalMoves(String[] parameters) throws DataAccessException, ResponseException {
         String[] currentSpot = parameters[0].toLowerCase().split("");
-        Collection<ChessMove> list = chessGame.validMoves(new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])));
+        Collection<ChessMove> moves = chessGame.validMoves(new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])));
+        if (teamColor == ChessGame.TeamColor.BLACK) {
+            drawing.highlightValid(BoardDrawing.board, ChessGame.TeamColor.BLACK, new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])), moves);
+        } else {
+            drawing.highlightValid(BoardDrawing.board, ChessGame.TeamColor.WHITE, new ChessPosition(parseInt(currentSpot[0]), parseInt(currentSpot[1])), moves);
+        }
         return "These are the legal moves you can make!";
     }
     public String help() {

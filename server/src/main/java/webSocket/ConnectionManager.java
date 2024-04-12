@@ -13,9 +13,7 @@ public class ConnectionManager {
     public final ConcurrentHashMap<Integer, List<Connection>> connectionsMap = new ConcurrentHashMap<>();
 
     public void add(Integer gameID, Connection connection) {
-        if (connectionsMap.get(gameID) == null) {
-            connectionsMap.put(gameID, new ArrayList<>());
-        }
+        connectionsMap.computeIfAbsent(gameID, k -> new ArrayList<>());
         connectionsMap.get(gameID).add(connection);
     }
 

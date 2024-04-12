@@ -48,6 +48,7 @@ public class WebSocketFacade extends Endpoint {
                         System.out.print("\n>>>");
                     } else if (result.getServerMessageType() == ServerMessage.ServerMessageType.ERROR) {
                         Error errorMessage = new Gson().fromJson(message, Error.class);
+                        notificationHandler.notify(errorMessage.getMessage());
                     }
                 }
             }

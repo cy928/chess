@@ -149,8 +149,8 @@ public class WebSocketHandler {
             Notification notification=new Notification(message);
             connectionManager.broadcast(command.gameID, command.getAuthString(), notification);
             connectionManager.sendGame(command.gameID, new LoadGame(game));
-            String color = "";
-            String opponent = "";
+            String color;
+            String opponent;
             if (teamColor == ChessGame.TeamColor.BLACK) {
                 color = "Black";
                 opponent = "White";

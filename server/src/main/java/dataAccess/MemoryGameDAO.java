@@ -1,6 +1,5 @@
 package dataAccess;
 
-import chess.ChessGame;
 import dataAccessError.DataAccessException;
 import request.CreateGameRequest;
 import request.JoinGameRequest;

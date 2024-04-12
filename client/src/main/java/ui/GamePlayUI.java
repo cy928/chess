@@ -45,34 +45,23 @@ public class GamePlayUI {
         return "You have redraw the chess board!";
     }
     public String leave() throws DataAccessException, ResponseException {
-        try {
-            server.leave(gameId, teamColor);
-            Repl.state = State.POSTLOGIN;
-            return "You have left successfully!";
-        }
-        catch (DataAccessException e) {
-            throw e;
-        }
-
+        server.leave(gameId, teamColor);
+        Repl.state = State.POSTLOGIN;
+        return "You have left successfully!";
     }
     public String makeMove(String[] parameters) throws DataAccessException, ResponseException {
+        String[] start=parameters[0].split("");
+        ChessPosition startPosition=new ChessPosition(parseInt(start[0]), parseInt(start[1]));
+        String[] end=parameters[1].split("");
+        ChessPosition endPosition=new ChessPosition(parseInt(end[0]), parseInt(end[1]));
+        ChessMove move=new ChessMove(startPosition, endPosition, null);
         try {
-            String[] start=parameters[0].split("");
-            ChessPosition startPosition=new ChessPosition(parseInt(start[0]), parseInt(start[1]));
-            String[] end=parameters[1].split("");
-            ChessPosition endPosition=new ChessPosition(parseInt(end[0]), parseInt(end[1]));
-            ChessMove move=new ChessMove(startPosition, endPosition, null);
-            try {
-                chessGame.makeMove(move);
-            } catch (InvalidMoveException e) {
-                return e.getMessage();
-            }
-            server.makeMove(gameId, move);
-            return redrawChessBoard();
+            chessGame.makeMove(move);
+        } catch (InvalidMoveException e) {
+            return e.getMessage();
         }
-        catch (DataAccessException | ResponseException e) {
-            throw e;
-        }
+        server.makeMove(gameId, move);
+        return redrawChessBoard();
     }
     public String resign() throws DataAccessException, ResponseException {
         while (true) {

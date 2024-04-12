@@ -57,12 +57,11 @@ public class PostLogin {
         return output.toString();
     }
     public String observe(String[] parameters) throws DataAccessException {
-        ChessGame.TeamColor color = null;
         Integer gameID = parseInt(parameters[0]);
         WebSocketFacade webServer = new WebSocketFacade(Repl.serverURL, this.notificationHandler, authToken);
         webServer.joinObserver(gameID);
         Repl.state = State.GAMEPLAYUI;
-        GamePlayUI.teamColor= color;
+        GamePlayUI.teamColor=null;
         GamePlayUI.gameId= gameID;
         GamePlayUI.server= webServer;
         return "You are now observing the game!";

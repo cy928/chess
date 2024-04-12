@@ -1,9 +1,7 @@
 package handler;
 
-import com.google.gson.Gson;
 import dataAccessError.DataAccessException;
 import request.AuthToken;
-import result.ErrorResult;
 import service.UserService;
 import spark.Request;
 import spark.Response;
